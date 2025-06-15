@@ -1,0 +1,13 @@
+GIMP Palette
+Name: CustomPalette
+Columns: 8
+#
+229  25  76	Color0
+ 25 178 229	Color1
+204 204  25	Color2
+153  51 204	Color3
+ 51 229 153	Color4
+242 127  25	Color5
+102 229 255	Color6
+255 255 255	Color7
+  0   0   0     Color8

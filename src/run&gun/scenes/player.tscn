@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://dn40clxkjbilw"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_73n8v"]
+[ext_resource type="Texture2D" uid="uid://cltdelfv171s5" path="res://sprites/player_idle1.png" id="2_pqyak"]
+[ext_resource type="Texture2D" uid="uid://dfy6thkanqddr" path="res://sprites/player_idle2.png" id="3_4flox"]
+[ext_resource type="Texture2D" uid="uid://c3lws6w55dj4i" path="res://sprites/player_idle3.png" id="4_1nldl"]
+[ext_resource type="Texture2D" uid="uid://ckj55bmsoq0aa" path="res://sprites/player_running1.png" id="5_gjxlu"]
+[ext_resource type="Texture2D" uid="uid://dxf1j7rgvqtba" path="res://sprites/player_running2.png" id="6_fgexf"]
+[ext_resource type="Texture2D" uid="uid://cry6uleiogthy" path="res://sprites/player_running3.png" id="7_3lfv5"]
+[ext_resource type="Texture2D" uid="uid://f1vbgtkew5yn" path="res://sprites/player_gun.png" id="8_bcutw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p7xn4"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"dying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pqyak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4flox")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1nldl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_gjxlu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fgexf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3lfv5")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1a6xh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_bcutw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ojop"]
+size = Vector2(18, 27)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_73n8v")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_p7xn4")
+animation = &"idle"
+
+[node name="gun" type="AnimatedSprite2D" parent="sprite"]
+position = Vector2(1, -2)
+sprite_frames = SubResource("SpriteFrames_1a6xh")
+
+[node name="Marker2D" type="Marker2D" parent="sprite/gun"]
+position = Vector2(32, 15)
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(2, 16.5)
+shape = SubResource("RectangleShape2D_2ojop")
