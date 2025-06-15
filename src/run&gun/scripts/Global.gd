@@ -1,5 +1,8 @@
 extends Node
 var FULLSCREEN = false
+var shaker_obj = null
+var current_level = 1
+var current_life = 50
 
 func init_vars():
 	pass
@@ -63,3 +66,6 @@ func play_sound(stream: AudioStream, options:= {}, _global_position = null, dela
 func kill(_audio_stream_player):
 	if _audio_stream_player and is_instance_valid(_audio_stream_player):
 		_audio_stream_player.queue_free()
+
+func is_ok_FX(pos):
+	return true

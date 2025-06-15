@@ -1,14 +1,13 @@
 extends CharacterBody2D
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -550.0
 var moving = false
 var shoot_delay_total = 0.3
 var shoot_delay = 0.0
-var current_level = 1
-var current_life = 50
 var camera_pos = 207.0
 var spark_obj = preload("res://sprites/spark.tscn")
 var bullet_obj = preload("res://scenes/bullet.tscn")
+var dust_obj = preload("res://scenes/dust.tscn")
 var scale_x = 1.0
 var scale_y = 1.0
 var jumping = false
@@ -17,9 +16,11 @@ var direction_shoot = "R"
 func _ready() -> void:
 	$sprite.animation = "idle"
 	$sprite.play()
+	Global.shaker_obj.camera = $Camera2D
 	
 func shoot():
 	if shoot_delay <= 0:
+		Global.shaker_obj.shake(3.0, 1.0)
 		shoot_delay = shoot_delay_total
 		var buff = 0.0
 		var dir = 0.0
@@ -49,11 +50,12 @@ func shoot():
 		
 		if moving:
 			buff = 50 * dir
-		
-		var spark = spark_obj.instantiate()
-		spark.global_position = Vector2($sprite/gun/Marker2D.global_position.x + buff, $sprite/gun/Marker2D.global_position.y)
-		get_parent().add_child(spark)
-		
+	
+func create_dust():
+	var dust = dust_obj.instantiate()
+	dust.global_position = Vector2(global_position.x, global_position.y + 10)
+	get_parent().add_child(dust)
+	
 func _physics_process(delta: float) -> void:
 	if shoot_delay > 0:
 		shoot_delay -= 1 * delta
@@ -62,20 +64,22 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	if jumping and is_on_floor():
+		create_dust()
 		jumping = false
-		scale_x = 1.8
-		scale_y = 0.5
+		scale_x = 3.8
+		scale_y = 0.1
 		
 	moving = false
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		create_dust()
 		velocity.y = JUMP_VELOCITY
-		scale_x = 0.2
-		scale_y = 1.5
+		scale_x = 0.1
+		scale_y = 3.1
 		jumping = true
 		
 	if scale_x > 1.0:
-		scale_x = lerp(scale_x, 1.0, 0.1)
+		scale_x = lerp(scale_x, 1.0, 0.3)
 		
 	if scale_x < 1.0:
 		scale_x = lerp(scale_x, 1.0, 0.1)

@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://jqfap7dyroc1"]
+[gd_scene load_steps=10 format=4 uid="uid://jqfap7dyroc1"]
 
 [ext_resource type="PackedScene" uid="uid://dn40clxkjbilw" path="res://scenes/player.tscn" id="1_0bmj5"]
 [ext_resource type="Texture2D" uid="uid://b5b12t4kq3rgb" path="res://sprites/terrain/box.png" id="1_lpe3u"]
+[ext_resource type="PackedScene" uid="uid://bix47by45g66p" path="res://scenes/shaker.tscn" id="1_mn4yh"]
+[ext_resource type="Shader" path="res://scenes/FX.gdshader" id="4_h4423"]
+[ext_resource type="PackedScene" uid="uid://bxdn47ix4ytgk" path="res://scenes/xp_item.tscn" id="5_iwmxb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_07awp"]
 texture = ExtResource("1_lpe3u")
@@ -14,7 +17,22 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_07awp")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p6773"]
+shader = ExtResource("4_h4423")
+shader_parameter/amount = 0.2
+
+[sub_resource type="Environment" id="Environment_em42y"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.01
+glow_strength = 1.63
+glow_blend_mode = 1
+glow_hdr_threshold = 0.0
+glow_hdr_scale = 2.03
+
 [node name="Level" type="Node2D"]
+
+[node name="Shaker" parent="." instance=ExtResource("1_mn4yh")]
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAABAAcAAQAAAAAAAAACAAcAAQAAAAAAAAADAAcAAQAAAAAAAAAEAAcAAQAAAAAAAAAFAAcAAQAAAAAAAAAGAAcAAQAAAAAAAAAHAAcAAQAAAAAAAAAIAAcAAQAAAAAAAAAJAAcAAQAAAAAAAAAKAAcAAQAAAAAAAAALAAcAAQAAAAAAAAAMAAcAAQAAAAAAAAANAAcAAQAAAAAAAAAOAAcAAQAAAAAAAAAPAAcAAQAAAAAAAAAQAAcAAQAAAAAAAAARAAcAAQAAAAAAAAASAAcAAQAAAAAAAAATAAcAAQAAAAAAAAAUAAcAAQAAAAAAAAAVAAcAAQAAAAAAAAAWAAcAAQAAAAAAAAAXAAcAAQAAAAAAAAAYAAcAAQAAAAAAAAAZAAcAAQAAAAAAAAAaAAcAAQAAAAAAAAAbAAcAAQAAAAAAAAAcAAcAAQAAAAAAAAAdAAcAAQAAAAAAAAAeAAcAAQAAAAAAAAAfAAcAAQAAAAAAAAAgAAcAAQAAAAAAAAAhAAcAAQAAAAAAAAAiAAcAAQAAAAAAAAAjAAcAAQAAAAAAAAAkAAcAAQAAAAAAAAAlAAcAAQAAAAAAAAAmAAcAAQAAAAAAAAAnAAcAAQAAAAAAAAAoAAcAAQAAAAAAAAApAAcAAQAAAAAAAAAqAAcAAQAAAAAAAAArAAcAAQAAAAAAAAAsAAcAAQAAAAAAAAAtAAcAAQAAAAAAAAAuAAcAAQAAAAAAAAAvAAcAAQAAAAAAAAAwAAcAAQAAAAAAAAAxAAcAAQAAAAAAAAAyAAcAAQAAAAAAAAAzAAcAAQAAAAAAAAA0AAcAAQAAAAAAAAA1AAcAAQAAAAAAAAA2AAcAAQAAAAAAAAA3AAcAAQAAAAAAAAA4AAcAAQAAAAAAAAA5AAcAAQAAAAAAAAA6AAcAAQAAAAAAAAA7AAcAAQAAAAAAAAA8AAcAAQAAAAAAAAA9AAcAAQAAAAAAAAA+AAcAAQAAAAAAAAA/AAcAAQAAAAAAAABAAAcAAQAAAAAAAABBAAcAAQAAAAAAAABCAAcAAQAAAAAAAABDAAcAAQAAAAAAAABEAAcAAQAAAAAAAABFAAcAAQAAAAAAAABGAAcAAQAAAAAAAAA=")
@@ -33,3 +51,16 @@ position = Vector2(199, 225)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(-843, 130)
 polygon = PackedVector2Array(259, 110, 72, 110, 67, 278, 440, 220)
+
+[node name="FX" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_p6773")
+offset_left = -475.0
+offset_top = -336.0
+offset_right = 2469.0
+offset_bottom = 937.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_em42y")
+
+[node name="XP_Item" parent="." instance=ExtResource("5_iwmxb")]

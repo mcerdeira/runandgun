@@ -1,0 +1,153 @@
+[gd_scene load_steps=16 format=3 uid="uid://dbwfjql7vg0wj"]
+
+[ext_resource type="Script" path="res://scenes/dust.gd" id="1_7bu30"]
+[ext_resource type="Texture2D" uid="uid://bq435unwnkbqd" path="res://sprites/dust1.png" id="2_hiq6v"]
+[ext_resource type="Texture2D" uid="uid://bm7pvex6yv5cd" path="res://sprites/dust2.png" id="3_4sl1h"]
+[ext_resource type="Texture2D" uid="uid://c2qq7f7ybe1q3" path="res://sprites/dust3.png" id="4_io6jx"]
+[ext_resource type="Texture2D" uid="uid://b2lkao4f4rx5n" path="res://sprites/dust4.png" id="5_3xj88"]
+[ext_resource type="Texture2D" uid="uid://cvqres4yapts1" path="res://sprites/dust5.png" id="6_r462s"]
+[ext_resource type="Texture2D" uid="uid://cklvdmqvrldkg" path="res://sprites/dust6.png" id="7_yxysw"]
+[ext_resource type="Texture2D" uid="uid://cdiedb1f5u1o3" path="res://sprites/dust7.png" id="8_5xg2g"]
+[ext_resource type="Texture2D" uid="uid://cnn8q7li0ubyr" path="res://sprites/dust8.png" id="9_djt45"]
+[ext_resource type="Texture2D" uid="uid://dgbrsa4xtst1a" path="res://sprites/dust9.png" id="10_kjrkn"]
+[ext_resource type="Texture2D" uid="uid://cnyx0o8hfst2i" path="res://sprites/shoot_spark9.png" id="11_6e2wf"]
+
+[sub_resource type="Animation" id="Animation_vx1fg"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(22, 32), Vector2(64, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-18, 32), Vector2(-64, 32)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0666667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"start_dust"
+}, {
+"args": [],
+"method": &"end_dust"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_3118p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(22, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-18, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f7vej"]
+_data = {
+"RESET": SubResource("Animation_3118p"),
+"new_animation": SubResource("Animation_vx1fg")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ffk0s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hiq6v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4sl1h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_io6jx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3xj88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_r462s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yxysw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5xg2g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_djt45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_kjrkn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_6e2wf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Dust" type="Node2D"]
+script = ExtResource("1_7bu30")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f7vej")
+}
+speed_scale = 3.0
+
+[node name="sprite2" type="AnimatedSprite2D" parent="."]
+position = Vector2(22, 32)
+sprite_frames = SubResource("SpriteFrames_ffk0s")
+autoplay = "default"
+frame_progress = 0.997067
+speed_scale = 5.0
+
+[node name="sprite3" type="AnimatedSprite2D" parent="."]
+position = Vector2(-18, 32)
+sprite_frames = SubResource("SpriteFrames_ffk0s")
+autoplay = "default"
+frame_progress = 0.382788
+speed_scale = 5.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
