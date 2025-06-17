@@ -11,6 +11,5 @@ func end_dust():
 	$sprite2.visible = false
 	$sprite3.visible = false
 
-
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	queue_free()

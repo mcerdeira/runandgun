@@ -1,0 +1,15 @@
+extends RigidBody2D
+@export var lifetime := 2.0 
+var xp_item_fx = preload("res://scenes/xp_item_fx.tscn")
+
+func _ready():
+	apply_central_impulse(Vector2(randi_range(-200, 200), -400)) 
+	
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("players"):
+		gravity_scale = 0.0
+		var xp = xp_item_fx.instantiate()
+		xp.global_position = global_position
+		body.xp_up()
+		get_parent().add_child(xp)
+		queue_free()

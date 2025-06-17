@@ -12,6 +12,33 @@
 [ext_resource type="Texture2D" uid="uid://dgbrsa4xtst1a" path="res://sprites/dust9.png" id="10_kjrkn"]
 [ext_resource type="Texture2D" uid="uid://cnyx0o8hfst2i" path="res://sprites/shoot_spark9.png" id="11_6e2wf"]
 
+[sub_resource type="Animation" id="Animation_3118p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(22, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-18, 32)]
+}
+
 [sub_resource type="Animation" id="Animation_vx1fg"]
 resource_name = "new_animation"
 tracks/0/type = "value"
@@ -54,33 +81,6 @@ tracks/2/keys = {
 "args": [],
 "method": &"end_dust"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_3118p"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite2:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(22, 32)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite3:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-18, 32)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f7vej"]

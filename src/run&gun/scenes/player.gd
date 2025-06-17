@@ -2,32 +2,53 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -550.0
 var moving = false
-var shoot_delay_total = 0.3
 var shoot_delay = 0.0
 var camera_pos = 207.0
-var spark_obj = preload("res://sprites/spark.tscn")
 var bullet_obj = preload("res://scenes/bullet.tscn")
 var dust_obj = preload("res://scenes/dust.tscn")
 var scale_x = 1.0
 var scale_y = 1.0
 var jumping = false
 var direction_shoot = "R"
+var hit_ttl = 0
+var hit_total = 25
 
 func _ready() -> void:
+	add_to_group("players")
 	$sprite.animation = "idle"
 	$sprite.play()
 	Global.shaker_obj.camera = $Camera2D
 	
+func hit(dmg = 1):
+	if hit_ttl <= 0:
+		Global.current_life -= dmg
+		if Global.current_life > 0:
+			Global.level_down(dmg)
+			hit_ttl = hit_total
+			$timer_hit.start()
+		else:
+			die()
+			
+func die():
+	Global.GAMEOVER = true
+	
+func xp_up():
+	Global.level_up()
+	$sprite.material.set_shader_parameter("on", true)
+	$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 0.196))
+	await get_tree().create_timer(0.3).timeout
+	$sprite.material.set_shader_parameter("on", false)
+	$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+	
 func shoot():
 	if shoot_delay <= 0:
 		Global.shaker_obj.shake(3.0, 1.0)
-		shoot_delay = shoot_delay_total
+		shoot_delay = Global.shoot_delay_total
 		var buff = 0.0
 		var dir = 0.0
 
 		var bullet = bullet_obj.instantiate()
 		bullet.global_position = $sprite/gun/Marker2D.global_position
-		shoot_delay = shoot_delay_total
 		bullet.rotation_degrees = $sprite/gun.rotation_degrees
 		bullet.setmy_scale($sprite/gun.scale.x)
 		if direction_shoot == "R":
@@ -56,7 +77,7 @@ func create_dust():
 	dust.global_position = Vector2(global_position.x, global_position.y + 10)
 	get_parent().add_child(dust)
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:	
 	if shoot_delay > 0:
 		shoot_delay -= 1 * delta
 	
@@ -124,6 +145,10 @@ func _physics_process(delta: float) -> void:
 			$sprite/gun.rotation_degrees = 270
 	else:
 		$sprite/gun.rotation_degrees = 0
+		if $sprite/gun.scale.x == -1:
+			direction_shoot = "L"
+		else:
+			direction_shoot = "R"
 		
 	$Camera2D.position.x = lerp($Camera2D.position.x, camera_pos, 0.03)
 	
@@ -136,3 +161,17 @@ func _physics_process(delta: float) -> void:
 		$sprite.animation = "idle"
 
 	move_and_slide()
+
+func _on_timer_hit_timeout() -> void:
+	hit_ttl -= 1
+	if hit_ttl % 2 == 0:
+		$sprite.material.set_shader_parameter("on", true)
+		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+	else:
+		$sprite.material.set_shader_parameter("on", false)
+		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+		
+	if hit_ttl == 0:
+		$sprite.material.set_shader_parameter("on", false)
+		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+		$timer_hit.stop()

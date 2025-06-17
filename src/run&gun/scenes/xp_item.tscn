@@ -1,15 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxdn47ix4ytgk"]
+[gd_scene load_steps=10 format=3 uid="uid://bxdn47ix4ytgk"]
 
 [ext_resource type="Script" path="res://scenes/node_3d.gd" id="1_e7rsq"]
+[ext_resource type="Script" path="res://scenes/xp_item.gd" id="1_hp4rd"]
+[ext_resource type="Shader" path="res://scenes/xp_item.gdshader" id="2_11ina"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tpfrk"]
+friction = 0.2
+bounce = 0.6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sm6hm"]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ysox"]
+radius = 9.05539
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e4e8v"]
+shader = ExtResource("2_11ina")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 2.3
+shader_parameter/shine_size = 0.01
+shader_parameter/white = null
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qg1al"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="PrismMesh" id="PrismMesh_1qmej"]
 
-[node name="XP_Item" type="Node2D"]
+[node name="XP_Item" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_tpfrk")
+linear_damp = 1.0
+script = ExtResource("1_hp4rd")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="collider" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sm6hm")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_5ysox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_e4e8v")
 position = Vector2(-19, 16)
 scale = Vector2(0.2, 0.2)
 texture = SubResource("ViewportTexture_qg1al")
@@ -26,9 +58,12 @@ mesh = SubResource("PrismMesh_1qmej")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
 transform = Transform3D(-0.936458, 0, -0.35078, 0, 1, 0, 0.35078, 0, -0.936458, -0.442266, -1.00328, -4.27271)
+current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D"]
 transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 1.65867, 1.10793, 1)
 light_color = Color(0.8, 0.8, 0.0980392, 1)
 light_energy = 8.51
 sky_mode = 1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,13 +1,8 @@
 extends Node3D
+var taken = false
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	$MeshInstance3D.rotation_degrees.x += 100 * delta
-	$MeshInstance3D.rotation_degrees.y += 100 * delta
-	$MeshInstance3D.rotation_degrees.z += 100 * delta
+	if !taken:
+		$MeshInstance3D.rotation_degrees.x += 100 * delta
+		$MeshInstance3D.rotation_degrees.y += 100 * delta
+		$MeshInstance3D.rotation_degrees.z += 100 * delta

@@ -3,11 +3,21 @@ var FULLSCREEN = false
 var shaker_obj = null
 var current_level = 1
 var current_life = 50
+var shoot_delay_total = 1.0
+var bullet_ttl = 0.1
+var bullet_count = 1
+var GAMEOVER = false
 
 func init_vars():
 	pass
 
 func _ready():
+	pass
+	
+func level_down(dmg):
+	pass
+	
+func level_up():
 	pass
 	
 func _physics_process(delta: float) -> void:

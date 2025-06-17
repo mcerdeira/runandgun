@@ -64,3 +64,13 @@ offset_bottom = 937.0
 environment = SubResource("Environment_em42y")
 
 [node name="XP_Item" parent="." instance=ExtResource("5_iwmxb")]
+position = Vector2(374, 53)
+
+[node name="XP_Item2" parent="." instance=ExtResource("5_iwmxb")]
+position = Vector2(374, 53)
+
+[node name="XP_Item3" parent="." instance=ExtResource("5_iwmxb")]
+position = Vector2(374, 53)
+
+[node name="XP_Item4" parent="." instance=ExtResource("5_iwmxb")]
+position = Vector2(374, 53)

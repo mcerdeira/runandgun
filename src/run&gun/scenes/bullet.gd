@@ -1,7 +1,7 @@
 extends Area2D
 var spark_obj = preload("res://sprites/spark.tscn")
 var done = false
-var ttl = 0.5
+var ttl = Global.bullet_ttl
 
 @export var speed: float = 1200.0
 var direction: Vector2 = Vector2.ZERO
