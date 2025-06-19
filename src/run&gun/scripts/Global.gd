@@ -1,11 +1,16 @@
 extends Node
 var FULLSCREEN = false
 var shaker_obj = null
-var current_level = 1
-var current_life = 50
+var current_level = 0.0
+var current_level_val = 0.0
+var levels_vals = [20.0, 55.0, 100.0]
+var current_life = 50.0
+var total_life = 50.0
 var shoot_delay_total = 1.0
 var bullet_ttl = 0.1
 var bullet_count = 1
+var player_obj = null
+var gameman_obj = null
 var GAMEOVER = false
 
 func init_vars():
@@ -15,12 +20,25 @@ func _ready():
 	pass
 	
 func level_down(dmg):
-	pass
+	Global.current_level_val -= dmg
+	if Global.current_level_val <= 0:
+		Global.current_level -= 1
+		Global.current_level_val = Global.levels_vals[Global.current_level] - dmg
+		if Global.current_level < 0:
+			Global.current_level = 0
 	
-func level_up():
-	pass
+func level_up(val):
+	Global.current_level_val += val
+	if Global.current_level_val >= Global.levels_vals[Global.current_level]:
+		Global.gameman_obj.create_message("LEVEL UP!")
+		Global.shaker_obj.shake(10.0, 3.0)
+		Global.current_level += 1
+		Global.current_level_val = 0
 	
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("damage_player"):
+		Global.player_obj.hit()
+	
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		Global.FULLSCREEN = !Global.FULLSCREEN
 		if Global.FULLSCREEN:

@@ -15,6 +15,7 @@ var hit_total = 25
 
 func _ready() -> void:
 	add_to_group("players")
+	Global.player_obj = self
 	$sprite.animation = "idle"
 	$sprite.play()
 	Global.shaker_obj.camera = $Camera2D
@@ -30,10 +31,11 @@ func hit(dmg = 1):
 			die()
 			
 func die():
+	Global.gameman_obj.create_message("GAME OVER")
 	Global.GAMEOVER = true
 	
-func xp_up():
-	Global.level_up()
+func xp_up(val = 5):
+	Global.level_up(val)
 	$sprite.material.set_shader_parameter("on", true)
 	$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 0.196))
 	await get_tree().create_timer(0.3).timeout

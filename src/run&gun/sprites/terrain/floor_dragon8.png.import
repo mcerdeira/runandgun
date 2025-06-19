@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyirlb66v2j5d"
-path="res://.godot/imported/box.png-6f849b4021fded488d30ef62923cbff3.ctex"
+uid="uid://cw1uue7wugegq"
+path="res://.godot/imported/floor_dragon8.png-e635a2ec6e3763b52dd4a1135d4ba003.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/terrain/box.png"
-dest_files=["res://.godot/imported/box.png-6f849b4021fded488d30ef62923cbff3.ctex"]
+source_file="res://sprites/terrain/floor_dragon8.png"
+dest_files=["res://.godot/imported/floor_dragon8.png-e635a2ec6e3763b52dd4a1135d4ba003.ctex"]
 
 [params]
 

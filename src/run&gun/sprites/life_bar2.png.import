@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyirlb66v2j5d"
-path="res://.godot/imported/box.png-6f849b4021fded488d30ef62923cbff3.ctex"
+uid="uid://cc8vxc23o2bnc"
+path="res://.godot/imported/life_bar2.png-ce3bce2c4c89cecc98975c80ffd91795.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/terrain/box.png"
-dest_files=["res://.godot/imported/box.png-6f849b4021fded488d30ef62923cbff3.ctex"]
+source_file="res://sprites/life_bar2.png"
+dest_files=["res://.godot/imported/life_bar2.png-ce3bce2c4c89cecc98975c80ffd91795.ctex"]
 
 [params]
 

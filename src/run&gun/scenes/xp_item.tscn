@@ -37,7 +37,6 @@ script = ExtResource("1_hp4rd")
 shape = SubResource("CircleShape2D_sm6hm")
 
 [node name="collider" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_5ysox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
