@@ -12,6 +12,7 @@ var jumping = false
 var direction_shoot = "R"
 var hit_ttl = 0
 var hit_total = 25
+var goku = 0.0
 
 func _ready() -> void:
 	add_to_group("players")
@@ -35,12 +36,15 @@ func die():
 	Global.GAMEOVER = true
 	
 func xp_up(val = 5):
-	Global.level_up(val)
+	var lvl = Global.level_up(val)
 	$sprite.material.set_shader_parameter("on", true)
 	$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 0.196))
 	await get_tree().create_timer(0.3).timeout
 	$sprite.material.set_shader_parameter("on", false)
 	$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+	if lvl:
+		goku = 4.0
+		$sprite.use_parent_material = true
 	
 func shoot():
 	if shoot_delay <= 0:
@@ -80,6 +84,11 @@ func create_dust():
 	get_parent().add_child(dust)
 	
 func _physics_process(delta: float) -> void:	
+	if goku > 0:
+		goku -= 1 * delta
+		if goku <= 0:
+			$sprite.use_parent_material = false
+	
 	if shoot_delay > 0:
 		shoot_delay -= 1 * delta
 	

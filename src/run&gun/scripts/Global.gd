@@ -34,6 +34,9 @@ func level_up(val):
 		Global.shaker_obj.shake(10.0, 3.0)
 		Global.current_level += 1
 		Global.current_level_val = 0
+		return true
+	else:
+		return false
 	
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("damage_player"):
