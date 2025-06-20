@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://jqfap7dyroc1"]
+[gd_scene load_steps=23 format=4 uid="uid://jqfap7dyroc1"]
 
 [ext_resource type="PackedScene" uid="uid://dn40clxkjbilw" path="res://scenes/player.tscn" id="1_0bmj5"]
 [ext_resource type="FontFile" uid="uid://cqp5o2vpb07yg" path="res://fonts/prstartk.ttf" id="1_07atg"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://jccbcjqyinx7" path="res://sprites/xp_bar1.png" id="3_dem6r"]
 [ext_resource type="Shader" path="res://scenes/FX.gdshader" id="4_h4423"]
 [ext_resource type="PackedScene" uid="uid://bxdn47ix4ytgk" path="res://scenes/xp_item.tscn" id="5_iwmxb"]
+[ext_resource type="Shader" path="res://scenes/fuego.gdshader" id="12_ua2w1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kitpu"]
 texture = ExtResource("2_wm23w")
@@ -50,6 +51,53 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_kitpu")
+
+[sub_resource type="Shader" id="Shader_lccs6"]
+code = "shader_type canvas_item;
+uniform float yoffset = 0.5;
+uniform float animation_speed = 0.5;
+uniform vec4 flame_color : source_color = vec4(1.0);
+uniform sampler2D noise_texture : hint_default_black, repeat_enable;
+
+void fragment() {
+	vec2 uv = vec2(UV.x, UV.y + TIME * animation_speed);
+	vec4 noise_color = texture(noise_texture, uv);
+	vec4 final_color = noise_color;
+	final_color.rgb += vec3(UV.y - yoffset);
+	final_color.rgb = step(final_color.rgb, vec3(0.5));
+	final_color.rgb = vec3(1.0) - final_color.rgb;
+	final_color.a = final_color.r;
+	final_color.rgb = flame_color.rgb;
+	COLOR = final_color;
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rb3i5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cny51"]
+width = 200
+height = 200
+noise = SubResource("FastNoiseLite_rb3i5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qk5nd"]
+resource_local_to_scene = true
+shader = SubResource("Shader_lccs6")
+shader_parameter/yoffset = 0.5
+shader_parameter/animation_speed = 0.1
+shader_parameter/flame_color = Color(0.255413, 0.137416, 0.22257, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_cny51")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dmrnf"]
+width = 950
+height = 950
+noise = SubResource("FastNoiseLite_rb3i5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_257w8"]
+resource_local_to_scene = true
+shader = ExtResource("12_ua2w1")
+shader_parameter/yoffset = 0.5
+shader_parameter/animation_speed = 0.1
+shader_parameter/flame_color = Color(0.160784, 0.0784314, 0.137255, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_dmrnf")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p6773"]
 shader = ExtResource("4_h4423")
@@ -110,11 +158,27 @@ text = "Lvl 3"
 [node name="Shaker" parent="." instance=ExtResource("1_mn4yh")]
 
 [node name="TileMap" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAcAAAAKAAAAAAABAAcAAAALAAAAAAACAAcAAAALAAAAAAADAAcAAAALAAAAAAAEAAcAAAALAAAAAAAFAAcAAAALAAAAAAAGAAcAAAALAAAAAAAHAAcAAAALAAAAAAAIAAcAAAALAAAAAAAJAAcAAAALAAAAAAAKAAcAAAALAAAAAAALAAcAAAALAAAAAAAMAAcAAAALAAAAAAANAAcAAAALAAAAAAAOAAcAAAALAAAAAAAPAAcAAAALAAAAAAAQAAcAAAALAAAAAAARAAcAAAALAAAAAAASAAcAAAALAAAAAAATAAYAAAAMAAAAAAATAAUAAAAMAAAAAAATAAQAAAAMAAAAAAATAAMAAAACAAAAAAAVAAMAAAABAAAAAAAUAAMAAAADAAAAAAAVAAQAAAANAAAAAAAVAAUAAAANAAAAAAAVAAYAAAANAAAAAAATAAcAAAAIAAAAAAAUAAcAAAAIAAAAAAAVAAcAAAAIAAAAAAAXAAcAAAALAAAAAAAYAAcAAAALAAAAAAAZAAcAAAALAAAAAAAaAAcAAAALAAAAAAAbAAcAAAALAAAAAAAWAAcAAAALAAAAAAAcAAcAAAAJAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAcAAAADAAAAAAABAAcAAAADAAAAAAACAAcAAAADAAAAAAADAAcAAAADAAAAAAAEAAcAAAADAAAAAAAFAAcAAAADAAAAAAAGAAcAAAADAAAAAAAHAAcAAAADAAAAAAAIAAcAAAADAAAAAAAJAAcAAAADAAAAAAAKAAcAAAADAAAAAAALAAcAAAADAAAAAAAMAAcAAAADAAAAAAANAAcAAAADAAAAAAAOAAcAAAADAAAAAAAPAAcAAAADAAAAAAAQAAcAAAADAAAAAAARAAcAAAADAAAAAAASAAcAAAADAAAAAAATAAYAAAAMAAAAAAATAAUAAAAMAAAAAAATAAQAAAAMAAAAAAATAAMAAAACAAAAAAAVAAMAAAABAAAAAAAUAAMAAAADAAAAAAAVAAQAAAANAAAAAAAVAAUAAAANAAAAAAAVAAYAAAANAAAAAAAXAAcAAAADAAAAAAAYAAcAAAADAAAAAAAZAAcAAAADAAAAAAAaAAcAAAADAAAAAAAbAAcAAAADAAAAAAAWAAcAAAADAAAAAAAcAAcAAAADAAAAAAA=")
 tile_set = SubResource("TileSet_gxlc0")
 
 [node name="Player" parent="." instance=ExtResource("1_0bmj5")]
 position = Vector2(73, 194)
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+z_index = -4096
+material = SubResource("ShaderMaterial_qk5nd")
+offset_left = -781.0
+offset_top = -723.0
+offset_right = 804.0
+offset_bottom = 392.0
+
+[node name="ColorRect2" type="ColorRect" parent="Player"]
+z_index = -4096
+material = SubResource("ShaderMaterial_257w8")
+offset_left = -792.0
+offset_top = -756.0
+offset_right = 806.0
+offset_bottom = 565.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(207, 34)
