@@ -19,7 +19,6 @@ func _ready() -> void:
 	Global.player_obj = self
 	$sprite.animation = "idle"
 	$sprite.play()
-	Global.shaker_obj.camera = $Camera2D
 	
 func hit(dmg = 1):
 	if hit_ttl <= 0:
@@ -160,8 +159,6 @@ func _physics_process(delta: float) -> void:
 			direction_shoot = "L"
 		else:
 			direction_shoot = "R"
-		
-	$Camera2D.position.x = lerp($Camera2D.position.x, camera_pos, 0.03)
 	
 	if Input.is_action_pressed("shoot"):
 		shoot()

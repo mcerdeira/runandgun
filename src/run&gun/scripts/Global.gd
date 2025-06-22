@@ -12,12 +12,19 @@ var bullet_count = 1
 var player_obj = null
 var gameman_obj = null
 var GAMEOVER = false
+var max_x = null
+var EnemySpawnerMain = {
+	"Ttl": 3.0,
+	"Ttl_total": 3.0,
+	"On": false,
+	"spawners": [],
+}
 
 func init_vars():
 	pass
 
 func _ready():
-	pass
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 func level_down(dmg):
 	Global.current_level_val -= dmg
@@ -39,8 +46,12 @@ func level_up(val):
 		return false
 	
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("damage_player"):
-		Global.player_obj.hit()
+	if Global.EnemySpawnerMain.On:
+		Global.EnemySpawnerMain.Ttl -= 1 * delta
+		if Global.EnemySpawnerMain.Ttl <= 0:
+			Global.EnemySpawnerMain.Ttl = Global.EnemySpawnerMain.Ttl_total
+			for s in Global.EnemySpawnerMain.spawners:
+				s.spawn()
 	
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		Global.FULLSCREEN = !Global.FULLSCREEN

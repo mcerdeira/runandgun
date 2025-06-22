@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcc4wjwjslpc3"]
+
+[ext_resource type="FontFile" uid="uid://cccrsbmllgguc" path="res://fonts/Kremlin Orthodox Church.ttf" id="2_ubedb"]
+[ext_resource type="Shader" path="res://scenes/FX.gdshader" id="3_qyo8g"]
+
+[sub_resource type="Shader" id="Shader_4v77c"]
+code = "shader_type canvas_item;
+uniform float yoffset = 0.5;
+uniform float animation_speed = 0.5;
+uniform vec4 flame_color : source_color = vec4(1.0);
+uniform sampler2D noise_texture : hint_default_black, repeat_enable;
+
+void fragment() {
+	vec2 uv = vec2(UV.x, UV.y + TIME * animation_speed);
+	vec4 noise_color = texture(noise_texture, uv);
+	vec4 final_color = noise_color;
+	final_color.rgb += vec3(UV.y - yoffset);
+	final_color.rgb = step(final_color.rgb, vec3(0.5));
+	final_color.rgb = vec3(1.0) - final_color.rgb;
+	final_color.a = final_color.r;
+	final_color.rgb = flame_color.rgb;
+	COLOR = final_color;
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_32ry4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dmrnf"]
+noise = SubResource("FastNoiseLite_32ry4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0hx7"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4v77c")
+shader_parameter/yoffset = 0.5
+shader_parameter/animation_speed = 1.0
+shader_parameter/flame_color = Color(0.0646965, 0.0646965, 0.0646965, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_dmrnf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4gfka"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4v77c")
+shader_parameter/yoffset = 0.5
+shader_parameter/animation_speed = 1.0
+shader_parameter/flame_color = Color(1, 1, 1, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_dmrnf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ad5cy"]
+shader = ExtResource("3_qyo8g")
+shader_parameter/amount = 0.2
+
+[node name="Title" type="Node2D"]
+
+[node name="Back" type="ColorRect" parent="."]
+offset_left = -384.0
+offset_top = -252.0
+offset_right = 1500.0
+offset_bottom = 924.0
+color = Color(0, 0, 0, 1)
+
+[node name="Fire2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_d0hx7")
+offset_left = -1.0
+offset_top = -241.0
+offset_right = 1148.0
+offset_bottom = 647.0
+
+[node name="Title" type="Label" parent="."]
+offset_top = -122.0
+offset_right = 1162.0
+offset_bottom = 532.0
+theme_override_colors/font_color = Color(0.878431, 0, 0.105882, 1)
+theme_override_fonts/font = ExtResource("2_ubedb")
+theme_override_font_sizes/font_size = 350
+text = "BEELZEBOY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fire" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4gfka")
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1148.0
+offset_bottom = 648.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = -4.0
+offset_top = 572.0
+offset_right = 1148.0
+offset_bottom = 664.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ubedb")
+theme_override_font_sizes/font_size = 50
+text = "press start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FX" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ad5cy")
+offset_left = -475.0
+offset_top = -336.0
+offset_right = 2469.0
+offset_bottom = 937.0

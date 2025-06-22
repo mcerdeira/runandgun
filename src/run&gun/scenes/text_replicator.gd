@@ -2,7 +2,7 @@ extends Node2D
 
 @export var text := "DEAD MAN"
 @export var font: Font
-@export var font_size := 64
+@export var font_size := 150
 @export var layer_count := 20
 @export var layer_offset := Vector2(0, 2)
 @export var base_color := Color.BLACK        # Color del eco
