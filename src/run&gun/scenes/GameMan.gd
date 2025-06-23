@@ -2,7 +2,24 @@ extends CanvasLayer
 var textfx = preload("res://scenes/text_replicator.tscn")
 
 func _ready() -> void:
+	$life_bar_in.visible = false
+	$life_bar_frame.visible = false
+	$xp_bar_in.visible = false
+	$xp_bar_frame.visible = false
+	$lbl_health.visible = false
+	$lbl_score.visible = false
+	$lbl_xp.visible = false
 	Global.gameman_obj = self
+	
+func delete_todo():
+	$Cross2.queue_free()
+	$life_bar_in.visible = true
+	$life_bar_frame.visible = true
+	$xp_bar_in.visible = true
+	$xp_bar_frame.visible = true
+	$lbl_health.visible = true
+	$lbl_score.visible = true
+	$lbl_xp.visible = true
 
 func _process(delta: float) -> void:
 	$lbl_xp.text = "Lvl " + str(Global.current_level + 1)
