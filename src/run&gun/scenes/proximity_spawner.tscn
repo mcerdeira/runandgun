@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://fsntybyou5qv"]
+
+[ext_resource type="Script" path="res://scenes/proximity_spawner.gd" id="1_ihf7i"]
+
+[node name="ProximitySpawner" type="Node2D"]
+position = Vector2(-239, 211)
+script = ExtResource("1_ihf7i")

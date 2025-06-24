@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 var enemy_obj = preload("res://scenes/enemy.tscn")
 var activated = false
 var spawn_ttl_total = 3.0
@@ -6,8 +6,12 @@ var spawn_ttl = 0.0
 var count = 0
 
 func _physics_process(delta: float) -> void:
-	if activated:
-		Global.deletefromdistance(global_position, self)
+	if !activated:
+		if global_position.distance_to(Global.player_obj.global_position) < Global.ONE_SCREEN:
+			activated = true
+	else:
+		if global_position.distance_to(Global.player_obj.global_position) < Global.ONE_SCREEN / 3:
+			queue_free()
 		if spawn_ttl > 0:
 			spawn_ttl -= 1 * delta
 			
@@ -22,10 +26,3 @@ func spawn():
 			enemy.no_xp = true
 		enemy.global_position = global_position
 		get_parent().add_child(enemy)
-
-func _on_body_exited(body: Node2D) -> void:
-	makeactive(body)
-
-func makeactive(body):
-	if body and body.is_in_group("players") and !activated:
-		activated = true

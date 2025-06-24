@@ -13,6 +13,7 @@ var direction_shoot = "R"
 var hit_ttl = 0
 var hit_total = 25
 var goku = 0.0
+var dont_move = true
 
 func _ready() -> void:
 	add_to_group("players")
@@ -20,7 +21,7 @@ func _ready() -> void:
 	$sprite.animation = "idle"
 	$sprite.play()
 	
-func hit(dmg = 1):
+func hit(dmg = 5):
 	if hit_ttl <= 0:
 		Global.current_life -= dmg
 		if Global.current_life > 0:
@@ -82,7 +83,7 @@ func create_dust():
 	dust.global_position = Vector2(global_position.x, global_position.y + 10)
 	get_parent().add_child(dust)
 	
-func _physics_process(delta: float) -> void:	
+func _physics_process(delta: float) -> void:
 	if goku > 0:
 		goku -= 1 * delta
 		if goku <= 0:
@@ -102,7 +103,7 @@ func _physics_process(delta: float) -> void:
 		
 	moving = false
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if !dont_move and Input.is_action_just_pressed("jump") and is_on_floor():
 		create_dust()
 		velocity.y = JUMP_VELOCITY
 		scale_x = 0.1
@@ -124,14 +125,14 @@ func _physics_process(delta: float) -> void:
 	$sprite.scale.x = lerp($sprite.scale.x, scale_x, 0.1)
 	$sprite.scale.y = lerp($sprite.scale.y, scale_y, 0.1)
 		
-	if Input.is_action_pressed("left"):
+	if !dont_move and Input.is_action_pressed("left"):
 		direction_shoot = "L"
 		velocity.x = -1 * SPEED
 		moving = true
 		$sprite.flip_h = true
 		$sprite/gun.scale.x = -1
 		camera_pos = -207.0
-	elif Input.is_action_pressed("right"):
+	elif !dont_move and Input.is_action_pressed("right"):
 		direction_shoot = "R"
 		velocity.x = 1 * SPEED
 		moving = true
@@ -141,13 +142,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 0.1)
 		
-	if Input.is_action_pressed("up") and Input.is_action_pressed("right"):
+	if !dont_move and Input.is_action_pressed("up") and Input.is_action_pressed("right"):
 		direction_shoot = "RU"
 		$sprite/gun.rotation_degrees = 313
-	elif Input.is_action_pressed("up") and Input.is_action_pressed("left"):
+	elif !dont_move and Input.is_action_pressed("up") and Input.is_action_pressed("left"):
 		direction_shoot = "LU"
 		$sprite/gun.rotation_degrees = 46
-	elif Input.is_action_pressed("up"):
+	elif !dont_move and Input.is_action_pressed("up"):
 		direction_shoot = "U"
 		if $sprite.flip_h:
 			$sprite/gun.rotation_degrees = -270
@@ -160,7 +161,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			direction_shoot = "R"
 	
-	if Input.is_action_pressed("shoot"):
+	if!dont_move and Input.is_action_pressed("shoot"):
 		shoot()
 		
 	if moving:

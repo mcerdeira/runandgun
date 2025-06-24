@@ -3,7 +3,8 @@ extends RigidBody2D
 var xp_item_fx = preload("res://scenes/xp_item_fx.tscn")
 
 func _ready():
-	apply_central_impulse(Vector2(randi_range(-200, 200), -400)) 
+	randomize()
+	apply_central_impulse(Vector2(randi_range(-200, 200), Global.pick_random([-400, -500, -600, -900]) )) 
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):

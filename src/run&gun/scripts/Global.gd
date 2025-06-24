@@ -13,12 +13,9 @@ var player_obj = null
 var gameman_obj = null
 var GAMEOVER = false
 var max_x = null
-var EnemySpawnerMain = {
-	"Ttl": 3.0,
-	"Ttl_total": 3.0,
-	"On": false,
-	"spawners": [],
-}
+var skip_animation = true
+var ONE_SCREEN = 1250
+var MAX_SPAWN_XP = 5
 
 func init_vars():
 	pass
@@ -28,7 +25,10 @@ func _ready():
 	
 func level_down(dmg):
 	Global.current_level_val -= dmg
-	if Global.current_level_val <= 0:
+	if Global.current_level_val < 0.0:
+		Global.current_level_val = 0.0
+		
+	if Global.current_level_val <= 0 and Global.current_level > 0.0:
 		Global.current_level -= 1
 		Global.current_level_val = Global.levels_vals[Global.current_level] - dmg
 		if Global.current_level < 0:
@@ -45,14 +45,11 @@ func level_up(val):
 	else:
 		return false
 	
-func _physics_process(delta: float) -> void:
-	if Global.EnemySpawnerMain.On:
-		Global.EnemySpawnerMain.Ttl -= 1 * delta
-		if Global.EnemySpawnerMain.Ttl <= 0:
-			Global.EnemySpawnerMain.Ttl = Global.EnemySpawnerMain.Ttl_total
-			for s in Global.EnemySpawnerMain.spawners:
-				s.spawn()
+func deletefromdistance(_global_position, obj):
+	if _global_position.distance_to(Global.player_obj.global_position) > ONE_SCREEN:
+		obj.queue_free()
 	
+func _physics_process(delta: float) -> void:	
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		Global.FULLSCREEN = !Global.FULLSCREEN
 		if Global.FULLSCREEN:

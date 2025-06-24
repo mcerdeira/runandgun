@@ -2,6 +2,7 @@ extends CanvasLayer
 var textfx = preload("res://scenes/text_replicator.tscn")
 
 func _ready() -> void:
+	$Cross2.visible = true
 	$life_bar_in.visible = false
 	$life_bar_frame.visible = false
 	$xp_bar_in.visible = false
@@ -10,8 +11,13 @@ func _ready() -> void:
 	$lbl_score.visible = false
 	$lbl_xp.visible = false
 	Global.gameman_obj = self
+	if Global.skip_animation:
+		delete_todo()
+	else:
+		$AnimationPlayer.play("new_animation")
 	
 func delete_todo():
+	Global.player_obj.dont_move = false
 	$Cross2.queue_free()
 	$life_bar_in.visible = true
 	$life_bar_frame.visible = true
