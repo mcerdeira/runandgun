@@ -16,10 +16,9 @@ func hit():
 		
 func die():
 	if !no_xp:
-		for i in range(2):
-			var xp = xp_drop.instantiate()
-			xp.global_position = global_position
-			get_parent().add_child(xp)
+		var xp = xp_drop.instantiate()
+		xp.global_position = global_position
+		get_parent().add_child(xp)
 	queue_free()
 
 func _physics_process(delta: float) -> void:

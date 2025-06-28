@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://buqrl3sjgwksn"]
+
+[ext_resource type="Script" path="res://scenes/enemy_eye.gd" id="1_a5bka"]
+[ext_resource type="Texture2D" uid="uid://dbgy6qmvuk3rb" path="res://sprites/enemies/enemy_bat1.png" id="2_8txtb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fpcd8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31igo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8txtb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyEye" type="Area2D"]
+script = ExtResource("1_a5bka")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fpcd8")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_31igo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

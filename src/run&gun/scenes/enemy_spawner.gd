@@ -1,5 +1,4 @@
 extends Area2D
-var enemy_obj = preload("res://scenes/enemy.tscn")
 var activated = false
 var spawn_ttl_total = 3.0
 var spawn_ttl = 0.0
@@ -17,7 +16,7 @@ func spawn():
 	if spawn_ttl <= 0:
 		count += 1
 		spawn_ttl = spawn_ttl_total
-		var enemy = enemy_obj.instantiate()
+		var enemy = Global.getenemy_random()
 		if count > Global.MAX_SPAWN_XP:
 			enemy.no_xp = true
 		enemy.global_position = global_position

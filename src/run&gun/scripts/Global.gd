@@ -1,27 +1,43 @@
 extends Node
-var FULLSCREEN = false
 var shaker_obj = null
+var player_obj = null
+var gameman_obj = null
+var skip_animation = true
+var GAMEOVER = false
+var FULLSCREEN = false
+## Enemies ################################
+var ENEMIES = []
+var ENEMY_BAT = null
+var ENEMY_EYE = null
+## Leveling stuff ########################
 var current_level = 0.0
 var current_level_val = 0.0
 var levels_vals = [20.0, 55.0, 100.0]
 var current_life = 50.0
 var total_life = 50.0
-var shoot_delay_total = 1.0
-var bullet_ttl = 0.1
+var shoot_delay_total = 0.3
+var bullet_ttl = 1.0
 var bullet_count = 1
-var player_obj = null
-var gameman_obj = null
-var GAMEOVER = false
+#######################################
 var max_x = null
-var skip_animation = true
 var ONE_SCREEN = 1250
 var MAX_SPAWN_XP = 5
 
 func init_vars():
-	pass
+	ENEMY_BAT = preload("res://scenes/enemy.tscn")
+	ENEMY_EYE = preload("res://scenes/enemy_eye.tscn")
+	ENEMIES = [
+		ENEMY_BAT, 
+		ENEMY_EYE
+	]
+	
+func getenemy_random():
+	var en = Global.pick_random(ENEMIES)
+	return en.instantiate()
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	init_vars()
 	
 func level_down(dmg):
 	Global.current_level_val -= dmg
