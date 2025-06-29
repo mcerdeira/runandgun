@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck7ainhos46hc"]
+
+[ext_resource type="Script" path="res://scenes/polygon_2d.gd" id="1_bxwpr"]
+
+[node name="Polygon2D" type="Polygon2D"]
+position = Vector2(2712, 82)
+color = Color(0.901961, 0.0980392, 0.301961, 1)
+script = ExtResource("1_bxwpr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(684, 529)
+polygon = PackedVector2Array(259, 110, 72, 110, 67, 278, 522, 278, 614, -134)

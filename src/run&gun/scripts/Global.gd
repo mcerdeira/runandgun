@@ -36,6 +36,7 @@ func getenemy_random():
 	return en.instantiate()
 
 func _ready():
+	RenderingServer.set_default_clear_color(Color8(36, 15, 28))
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	init_vars()
 	
