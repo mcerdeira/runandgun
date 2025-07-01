@@ -22,8 +22,10 @@ var bullet_count = 1
 var max_x = null
 var ONE_SCREEN = 1250
 var MAX_SPAWN_XP = 5
+var MAIN_THEME = null
 
 func init_vars():
+	MAIN_THEME = preload("res://music/Night On Bald Mountain.mp3")
 	ENEMY_BAT = preload("res://scenes/enemy.tscn")
 	ENEMY_EYE = preload("res://scenes/enemy_eye.tscn")
 	ENEMIES = [
@@ -39,6 +41,7 @@ func _ready():
 	RenderingServer.set_default_clear_color(Color8(36, 15, 28))
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	init_vars()
+	Music.play(MAIN_THEME)
 	
 func level_down(dmg):
 	Global.current_level_val -= dmg

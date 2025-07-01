@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://kimqoh3lmsbs"
+path="res://.godot/imported/Night On Bald Mountain.mp3-f5b24a05370ce386f472c832286c6b63.mp3str"
+
+[deps]
+
+source_file="res://music/Night On Bald Mountain.mp3"
+dest_files=["res://.godot/imported/Night On Bald Mountain.mp3-f5b24a05370ce386f472c832286c6b63.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

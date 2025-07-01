@@ -35,15 +35,10 @@ func _physics_process(delta: float) -> void:
 	if shoot_ttl <= 0:
 		shoot_ttl = shoot_ttl_total
 		shoot()
-	
-	if global_position.x < Global.player_obj.global_position.x:
-		$sprite.scale.x = 1
-	else:
-		$sprite.scale.x = -1
 		
 	var direction = Vector2.LEFT
 	global_position += direction * speed * delta
-			
-func _on_body_entered(body: Node2D) -> void:
+		
+func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("players"):
 		body.hit()

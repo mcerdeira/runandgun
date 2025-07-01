@@ -43,8 +43,8 @@ func _on_prechase_body_entered(body: Node2D) -> void:
 		if body and body.is_in_group("players"):
 			wait = 1.5
 			speed *= 1.5
-		
-func _on_body_entered(body: Node2D) -> void:
+	
+func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("players"):
 		speed = speed_original
 		wait = 2.3
