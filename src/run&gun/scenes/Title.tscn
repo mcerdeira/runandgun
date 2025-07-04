@@ -217,7 +217,7 @@ offset_bottom = 664.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ubedb")
 theme_override_font_sizes/font_size = 50
-text = "press start"
+text = "insert souls"
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -1,10 +1,9 @@
-[gd_scene load_steps=32 format=4 uid="uid://jqfap7dyroc1"]
+[gd_scene load_steps=31 format=4 uid="uid://jqfap7dyroc1"]
 
 [ext_resource type="PackedScene" uid="uid://dn40clxkjbilw" path="res://scenes/player.tscn" id="1_0bmj5"]
 [ext_resource type="FontFile" uid="uid://cqp5o2vpb07yg" path="res://fonts/prstartk.ttf" id="1_07atg"]
 [ext_resource type="Script" path="res://scenes/GameMan.gd" id="1_j25gr"]
 [ext_resource type="PackedScene" uid="uid://bix47by45g66p" path="res://scenes/shaker.tscn" id="1_mn4yh"]
-[ext_resource type="PackedScene" uid="uid://dlybn5r324v61" path="res://scenes/enemy.tscn" id="1_pm1jc"]
 [ext_resource type="Texture2D" uid="uid://c36nm23efurpk" path="res://sprites/cross.png" id="2_068ga"]
 [ext_resource type="Texture2D" uid="uid://cx1jkq4d71ivy" path="res://sprites/life_bar1.png" id="2_jfnjr"]
 [ext_resource type="Texture2D" uid="uid://cc8vxc23o2bnc" path="res://sprites/life_bar2.png" id="2_tgxgj"]
@@ -177,8 +176,6 @@ glow_hdr_threshold = 0.0
 glow_hdr_scale = 2.03
 
 [node name="Level" type="Node2D"]
-
-[node name="Enemy" parent="." instance=ExtResource("1_pm1jc")]
 
 [node name="Player" parent="." instance=ExtResource("1_0bmj5")]
 position = Vector2(73, 194)
