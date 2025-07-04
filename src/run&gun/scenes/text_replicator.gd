@@ -13,6 +13,7 @@ var ended = false
 var cursor = 0
 var labels = []
 var ttl = 0.5
+var eternal = false
 
 func _ready():
 	# Eliminar Labels anteriores si recargás la escena
@@ -42,9 +43,10 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	if ended:
-		ttl -= 1 * delta
-		if ttl <= 0:
-			queue_free()
+		if !eternal:
+			ttl -= 1 * delta
+			if ttl <= 0:
+				queue_free()
 	else:
 		labels[cursor].visible = true
 		cursor += 1

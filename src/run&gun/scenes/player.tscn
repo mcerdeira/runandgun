@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dn40clxkjbilw"]
+[gd_scene load_steps=17 format=3 uid="uid://dn40clxkjbilw"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_73n8v"]
 [ext_resource type="Shader" path="res://scenes/fire.gdshader" id="1_tteqd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cltdelfv171s5" path="res://sprites/player_idle1.png" id="2_pqyak"]
 [ext_resource type="Texture2D" uid="uid://dfy6thkanqddr" path="res://sprites/player_idle2.png" id="3_4flox"]
 [ext_resource type="Texture2D" uid="uid://c3lws6w55dj4i" path="res://sprites/player_idle3.png" id="4_1nldl"]
+[ext_resource type="Texture2D" uid="uid://b4w1i2a4qjkvb" path="res://sprites/player_dead.png" id="4_fulqq"]
 [ext_resource type="Texture2D" uid="uid://ckj55bmsoq0aa" path="res://sprites/player_running1.png" id="5_gjxlu"]
 [ext_resource type="Texture2D" uid="uid://dxf1j7rgvqtba" path="res://sprites/player_running2.png" id="6_fgexf"]
 [ext_resource type="Texture2D" uid="uid://cry6uleiogthy" path="res://sprites/player_running3.png" id="7_3lfv5"]
@@ -27,14 +28,12 @@ shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p7xn4"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_fulqq")
+}],
 "loop": true,
 "name": &"dead",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"dying",
 "speed": 5.0
 }, {
 "frames": [{

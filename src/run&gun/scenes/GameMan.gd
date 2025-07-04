@@ -38,8 +38,9 @@ func calc_life():
 func calc_level():
 	return Global.current_level_val / Global.levels_vals[Global.current_level]
 
-func create_message(msg):
+func create_message(msg, _eternal = false):
 	var tfx = textfx.instantiate()
 	tfx.global_position = Vector2(282, 25)
 	tfx.text = msg
+	tfx.eternal = _eternal
 	add_child(tfx)

@@ -1,5 +1,5 @@
-https://www.youtube.com/watch?v=lr7L8pd-m9g
-
+- Musica: https://www.youtube.com/watch?v=lr7L8pd-m9g
+==============================================================================
 - Bat: hacer que al golpear al personaje, retroceda a la posicion  
 - Enemigos: que se pinten de blanco con el hit
 - Hacer que tengas creditos (insert coin al inicio) y que todo parezca un arcade posta 

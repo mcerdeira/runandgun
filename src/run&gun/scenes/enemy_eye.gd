@@ -12,6 +12,8 @@ func _ready() -> void:
 	
 func hit():
 	life -= 1
+	$sprite.material.set_shader_parameter("on", true)
+	$hit_timer.start()
 	if life <= 0:
 		die()
 		
@@ -42,3 +44,7 @@ func _physics_process(delta: float) -> void:
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("players"):
 		body.hit()
+
+
+func _on_hit_timer_timeout() -> void:
+	$sprite.material.set_shader_parameter("on", false)

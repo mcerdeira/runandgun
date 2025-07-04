@@ -11,7 +11,7 @@ var scale_y = 1.0
 var jumping = false
 var direction_shoot = "R"
 var hit_ttl = 0
-var hit_total = 25
+var hit_total = 7
 var goku = 0.0
 var dont_move = true
 
@@ -22,18 +22,25 @@ func _ready() -> void:
 	$sprite.play()
 	
 func hit(dmg = 5):
-	if hit_ttl <= 0:
-		Global.current_life -= dmg
-		if Global.current_life > 0:
-			Global.level_down(dmg)
-			hit_ttl = hit_total
-			$timer_hit.start()
-		else:
-			die()
+	if !Global.GAMEOVER: 
+		if hit_ttl <= 0:
+			hit_jump()
+			Global.current_life -= dmg
+			if Global.current_life > 0:
+				Global.level_down(dmg)
+				hit_ttl = hit_total
+				$timer_hit.start()
+			else:
+				die()
 			
 func die():
-	Global.gameman_obj.create_message("GAME OVER")
-	Global.GAMEOVER = true
+	if !Global.GAMEOVER:
+		velocity.x = 0 
+		dont_move = true
+		Global.GAMEOVER = true
+		$sprite.animation = "dead"
+		$sprite/gun.visible = false
+		Global.gameman_obj.create_message("GAME OVER", true)
 	
 func xp_up(val = 5):
 	var lvl = Global.level_up(val)
@@ -82,6 +89,10 @@ func create_dust():
 	var dust = dust_obj.instantiate()
 	dust.global_position = Vector2(global_position.x, global_position.y + 10)
 	get_parent().add_child(dust)
+	
+func hit_jump():
+	jumping = true
+	velocity.y = JUMP_VELOCITY / 3
 	
 func _physics_process(delta: float) -> void:
 	if goku > 0:
@@ -164,12 +175,13 @@ func _physics_process(delta: float) -> void:
 	if!dont_move and Input.is_action_pressed("shoot"):
 		shoot()
 		
-	if moving:
-		$sprite.animation = "running"
-	else:
-		$sprite.animation = "idle"
+	if !Global.GAMEOVER:
+		if moving:
+			$sprite.animation = "running"
+		else:
+			$sprite.animation = "idle"
 
-	move_and_slide()
+		move_and_slide()
 
 func _on_timer_hit_timeout() -> void:
 	hit_ttl -= 1

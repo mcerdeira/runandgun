@@ -1,9 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://buqrl3sjgwksn"]
+[gd_scene load_steps=10 format=3 uid="uid://buqrl3sjgwksn"]
 
 [ext_resource type="Script" path="res://scenes/enemy_eye.gd" id="1_a5bka"]
 [ext_resource type="Texture2D" uid="uid://y7mcj7udgmsy" path="res://sprites/enemies/enemy_eye1.png" id="2_0ghtw"]
+[ext_resource type="Shader" path="res://scenes/hitshader.gdshader" id="2_46hf8"]
 [ext_resource type="Texture2D" uid="uid://1ew1ddg3pugb" path="res://sprites/enemies/enemy_eye2.png" id="3_m8ubk"]
 [ext_resource type="Texture2D" uid="uid://bt8b0vebs15rp" path="res://sprites/enemies/enemy_eye3.png" id="4_l6jsi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ryfcy"]
+resource_local_to_scene = true
+shader = ExtResource("2_46hf8")
+shader_parameter/on = false
+shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_31igo"]
 animations = [{
@@ -32,6 +39,7 @@ radius = 16.0312
 script = ExtResource("1_a5bka")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ryfcy")
 sprite_frames = SubResource("SpriteFrames_31igo")
 autoplay = "default"
 
@@ -45,4 +53,9 @@ shape = SubResource("RectangleShape2D_l2igf")
 position = Vector2(-2, -13)
 shape = SubResource("CircleShape2D_kedav")
 
+[node name="hit_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="hit_timer" to="." method="_on_hit_timer_timeout"]
