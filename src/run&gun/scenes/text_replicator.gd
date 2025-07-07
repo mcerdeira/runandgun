@@ -32,8 +32,10 @@ func _ready():
 	# Crear las capas (eco)
 	for i in range(layer_count):
 		var l := Label.new()
+		l.size = Vector2(1152, 648)
 		l.text = text
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		l.label_settings = label_settings
 		l.position = layer_offset * i
 		l.z_as_relative = false

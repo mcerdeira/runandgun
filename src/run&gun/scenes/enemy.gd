@@ -59,6 +59,7 @@ func _on_prechase_body_entered(body: Node2D) -> void:
 	
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("players"):
+		$doaBarrelRoll.play("new_animation")
 		speed = speed_original
 		return_ttl = 2.3
 		body.hit()

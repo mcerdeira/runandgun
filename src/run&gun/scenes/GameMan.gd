@@ -40,7 +40,7 @@ func calc_level():
 
 func create_message(msg, _eternal = false):
 	var tfx = textfx.instantiate()
-	tfx.global_position = Vector2(282, 25)
+	tfx.global_position = Vector2(0, -250)
 	tfx.text = msg
 	tfx.eternal = _eternal
 	add_child(tfx)

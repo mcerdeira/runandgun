@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmspqaom77sfe"]
+[gd_scene load_steps=4 format=3 uid="uid://cmspqaom77sfe"]
 
 [ext_resource type="Script" path="res://scenes/text_replicator.gd" id="1_jkj70"]
 [ext_resource type="FontFile" uid="uid://bsl346i62og0p" path="res://fonts/Brunson.ttf" id="2_ixjxm"]
+[ext_resource type="Texture2D" uid="uid://dbgy6qmvuk3rb" path="res://sprites/enemies/enemy_bat1.png" id="3_h17t6"]
 
 [node name="TextReplicator" type="Node2D"]
-position = Vector2(282, 25)
 script = ExtResource("1_jkj70")
 text = "LEVEL UP!"
 font = ExtResource("2_ixjxm")
@@ -14,3 +14,6 @@ layer_offset = Vector2(0, 5)
 base_color = Color(0.129412, 0.0588235, 0.109804, 1)
 outline_size = 5
 outline_color = Color(1, 1, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_h17t6")
