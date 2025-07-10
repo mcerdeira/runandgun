@@ -191,9 +191,9 @@ offset_bottom = 647.0
 position = Vector2(576, 0)
 
 [node name="Title" type="Label" parent="TitleHolder"]
-offset_left = -568.0
+offset_left = -578.0
 offset_top = -122.0
-offset_right = 594.0
+offset_right = 584.0
 offset_bottom = 532.0
 theme_override_colors/font_color = Color(0.878431, 0, 0.105882, 1)
 theme_override_fonts/font = ExtResource("2_ubedb")
