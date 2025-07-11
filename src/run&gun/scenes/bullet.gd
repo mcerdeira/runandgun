@@ -29,7 +29,10 @@ func _physics_process(delta):
 			explode(false)
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if body is TileMapLayer:
+	if body and body.is_in_group("enemies"):
+		body.hit()
+		explode(true)
+	elif body is TileMapLayer:
 		explode(true)
 
 func _on_area_entered(area: Area2D) -> void:

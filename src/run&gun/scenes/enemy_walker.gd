@@ -3,10 +3,12 @@ var xp_drop = preload("res://scenes/xp_item.tscn")
 var bullet_obj = preload("res://scenes/enemy_bullet.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-var jump_ttl_total = 3.0
+var jump_ttl_total = 1.0
 var jump_ttl = jump_ttl_total
 var no_xp = false
 var life = 3
+var goback_ttl = 0.0
+var direction = -1
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -41,14 +43,26 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor() and jump_ttl <= 0:
 		jump_ttl = jump_ttl_total
 		velocity.y = JUMP_VELOCITY
+		
+	if is_on_wall():
+		direction *= -1
 
-	var direction = -1
-	velocity.x = direction * SPEED
+	if goback_ttl > 0:
+		goback_ttl -= 1 * delta
+		
+	$sprite.scale.x = direction * -1
+	
+	if goback_ttl > 0:
+		velocity.x = (direction * -1) * SPEED
+	else:
+		velocity.x = direction * SPEED
 
 	move_and_slide()
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("players"):
+		velocity.y = JUMP_VELOCITY
+		goback_ttl = 1.1
 		body.hit()
 
 func _on_hit_timer_timeout() -> void:

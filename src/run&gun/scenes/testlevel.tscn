@@ -336,4 +336,22 @@ position = Vector2(1759, 100)
 environment = SubResource("Environment_em42y")
 
 [node name="EnemyWalker" parent="." instance=ExtResource("17_tq625")]
-position = Vector2(656, 57)
+position = Vector2(604, 54)
+
+[node name="EnemyWalker2" parent="." instance=ExtResource("17_tq625")]
+position = Vector2(430, -122)
+
+[node name="EnemyWalker3" parent="." instance=ExtResource("17_tq625")]
+position = Vector2(547, -84)
+
+[node name="EnemyWalker4" parent="." instance=ExtResource("17_tq625")]
+position = Vector2(656, -75)
+
+[node name="EnemyWalker5" parent="." instance=ExtResource("17_tq625")]
+position = Vector2(447, 10)
+
+[node name="EnemyWalker6" parent="." instance=ExtResource("17_tq625")]
+position = Vector2(444, -267)
+
+[node name="EnemyWalker7" parent="." instance=ExtResource("17_tq625")]
+position = Vector2(564, -203)
