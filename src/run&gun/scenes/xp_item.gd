@@ -1,10 +1,12 @@
 extends RigidBody2D
 @export var lifetime := 2.0 
+var dir = 0
 var xp_item_fx = preload("res://scenes/xp_item_fx.tscn")
 
 func _ready():
+	print("XP")
 	randomize()
-	apply_central_impulse(Vector2(randi_range(-200, 200), Global.pick_random([-400, -500, -600, -900]) )) 
+	apply_central_impulse(Vector2(randi_range(0, 200) * dir, Global.pick_random([-100, -200, -300, -400, -500, -600, -900]) )) 
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):

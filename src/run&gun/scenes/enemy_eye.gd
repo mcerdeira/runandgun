@@ -11,17 +11,21 @@ func _ready() -> void:
 	add_to_group("enemies")
 	
 func hit():
-	life -= 1
-	$sprite.material.set_shader_parameter("on", true)
-	$hit_timer.start()
-	if life <= 0:
-		die()
+	if life > 0:
+		life -= 1
+		$sprite.material.set_shader_parameter("on", true)
+		$hit_timer.start()
+		if life <= 0:
+			die()
 		
 func die():
+	var dir = 1
 	if !no_xp:
 		for i in range(2):
 			var xp = xp_drop.instantiate()
+			xp.dir = dir
 			xp.global_position = global_position
+			dir *= -1
 			get_parent().add_child(xp)
 	queue_free()
 
