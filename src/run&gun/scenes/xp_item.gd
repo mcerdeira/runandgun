@@ -4,7 +4,6 @@ var dir = 0
 var xp_item_fx = preload("res://scenes/xp_item_fx.tscn")
 
 func _ready():
-	print("XP")
 	randomize()
 	apply_central_impulse(Vector2(randi_range(0, 200) * dir, Global.pick_random([-100, -200, -300, -400, -500, -600, -900]) )) 
 	

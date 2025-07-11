@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://bvs1mjaj64he1"]
+
+[ext_resource type="Script" path="res://scenes/enemy_walker.gd" id="1_1bg4h"]
+[ext_resource type="Shader" path="res://scenes/hitshader.gdshader" id="2_0smef"]
+[ext_resource type="Texture2D" uid="uid://c2omo8anehyx1" path="res://sprites/enemies/enemy_walker1.png" id="3_tj62m"]
+[ext_resource type="Texture2D" uid="uid://d16u1awij5h1f" path="res://sprites/enemies/enemy_walker2.png" id="4_tx4ye"]
+[ext_resource type="Texture2D" uid="uid://duvu5cmsj422n" path="res://sprites/enemies/enemy_walker3.png" id="5_w0tsb"]
+[ext_resource type="Texture2D" uid="uid://bjxbccecok6ex" path="res://sprites/enemies/enemy_walker4.png" id="6_71wd3"]
+[ext_resource type="Texture2D" uid="uid://bw3cq3ndaisy7" path="res://sprites/enemies/enemy_walker5.png" id="7_1bl0g"]
+[ext_resource type="Texture2D" uid="uid://1jtxsq6hmm0a" path="res://sprites/enemies/enemy_walker6.png" id="8_14hbl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5s3vo"]
+radius = 14.0
+height = 44.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgtar"]
+resource_local_to_scene = true
+shader = ExtResource("2_0smef")
+shader_parameter/on = null
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t6576"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"jumping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tj62m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tx4ye")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_w0tsb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_71wd3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1bl0g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_14hbl")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4elxm"]
+radius = 42.4264
+
+[node name="EnemyWalker" type="CharacterBody2D"]
+script = ExtResource("1_1bg4h")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(4, 18)
+shape = SubResource("CapsuleShape2D_5s3vo")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_xgtar")
+sprite_frames = SubResource("SpriteFrames_t6576")
+animation = &"running"
+autoplay = "running"
+frame_progress = 0.514363
+speed_scale = 6.0
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="collider" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(5, -2)
+shape = SubResource("CircleShape2D_4elxm")
+
+[node name="hit_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="hit_timer" to="." method="_on_hit_timer_timeout"]
