@@ -1,4 +1,5 @@
 extends CharacterBody2D
+@export var direction = -1
 var xp_drop = preload("res://scenes/xp_item.tscn")
 var bullet_obj = preload("res://scenes/enemy_bullet.tscn")
 const SPEED = 300.0
@@ -8,7 +9,6 @@ var jump_ttl = jump_ttl_total
 var no_xp = false
 var life = 3
 var goback_ttl = 0.0
-var direction = -1
 
 func _ready() -> void:
 	add_to_group("enemies")

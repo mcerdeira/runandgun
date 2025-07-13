@@ -12,7 +12,6 @@ var jumping = false
 var direction_shoot = "R"
 var hit_ttl = 0
 var hit_total = 7
-var goku = 0.0
 var dont_move = true
 
 func _ready() -> void:
@@ -29,6 +28,10 @@ func hit(dmg = 5):
 			if Global.current_life > 0:
 				Global.level_down(dmg)
 				hit_ttl = hit_total
+				Level2Goku()
+				if Global.current_level == 0:
+					$sprite.use_parent_material = false
+					
 				$timer_hit.start()
 			else:
 				die()
@@ -44,14 +47,12 @@ func die():
 	
 func xp_up(val = 5):
 	var lvl = Global.level_up(val)
-	$sprite.material.set_shader_parameter("on", true)
-	$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 0.196))
-	await get_tree().create_timer(0.3).timeout
-	$sprite.material.set_shader_parameter("on", false)
-	$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
 	if lvl:
-		goku = 4.0
 		$sprite.use_parent_material = true
+		Level2Goku()
+		
+func Level2Goku():
+	material.set_shader_parameter("maxLineWidth", Global.current_level * 3)
 	
 func shoot():
 	if shoot_delay <= 0:
@@ -95,11 +96,6 @@ func hit_jump():
 	velocity.y = JUMP_VELOCITY / 3
 	
 func _physics_process(delta: float) -> void:
-	if goku > 0:
-		goku -= 1 * delta
-		if goku <= 0:
-			$sprite.use_parent_material = false
-	
 	if shoot_delay > 0:
 		shoot_delay -= 1 * delta
 	
@@ -185,14 +181,14 @@ func _physics_process(delta: float) -> void:
 
 func _on_timer_hit_timeout() -> void:
 	hit_ttl -= 1
-	if hit_ttl % 2 == 0:
-		$sprite.material.set_shader_parameter("on", true)
-		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
-	else:
-		$sprite.material.set_shader_parameter("on", false)
-		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
-		
-	if hit_ttl == 0:
-		$sprite.material.set_shader_parameter("on", false)
-		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
-		$timer_hit.stop()
+	#if hit_ttl % 2 == 0:
+		#$sprite.material.set_shader_parameter("on", true)
+		#$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+	#else:
+		#$sprite.material.set_shader_parameter("on", false)
+		#$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+		#
+	#if hit_ttl == 0:
+		#$sprite.material.set_shader_parameter("on", false)
+		#$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+		#$timer_hit.stop()

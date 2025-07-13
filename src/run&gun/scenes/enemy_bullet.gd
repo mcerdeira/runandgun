@@ -7,6 +7,7 @@ var spr : AnimatedSprite2D
 var direction: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	add_to_group("enemy_bullet")
 	spr = $sprite
 
 func setmy_scale(_scale):

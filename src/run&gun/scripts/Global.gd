@@ -7,12 +7,15 @@ var GAMEOVER = false
 var FULLSCREEN = false
 ## Enemies ################################
 var ENEMIES = []
+var ENEM_FLYERS = []
+var ENEM_WALKERS = []
 var ENEMY_BAT = null
 var ENEMY_EYE = null
+var ENEMY_WALKER = null
 ## Leveling stuff ########################
 var current_level = 0.0
 var current_level_val = 0.0
-var levels_vals = [20.0, 55.0, 100.0]
+var levels_vals = [20.0, 55.0, 100.0, 150.0]
 var current_life = 50.0
 var total_life = 50.0
 var shoot_delay_total = 0.3
@@ -28,13 +31,30 @@ func init_vars():
 	MAIN_THEME = load("res://music/Night On Bald Mountain.mp3")
 	ENEMY_BAT = preload("res://scenes/enemy.tscn")
 	ENEMY_EYE = preload("res://scenes/enemy_eye.tscn")
-	ENEMIES = [
+	ENEMY_WALKER = preload("res://scenes/enemy_walker.tscn")
+	ENEM_FLYERS = [
 		ENEMY_BAT, 
-		ENEMY_EYE
+		ENEMY_EYE,
+	]
+	ENEM_WALKERS = [
+		ENEMY_WALKER
 	]
 	
-func getenemy_random():
-	var en = Global.pick_random(ENEMIES)
+	ENEMIES = [
+		ENEMY_BAT, 
+		ENEMY_EYE,
+		ENEMY_WALKER
+	]
+	
+func getenemy_random(kind):
+	var en = null
+	if kind == "all":
+		en = Global.pick_random(ENEMIES)
+	elif kind == "flyers":
+		en = Global.pick_random(ENEM_FLYERS)
+	elif kind == "warlkers":
+		en = Global.pick_random(ENEM_WALKERS)
+		
 	return en.instantiate()
 
 func _ready():
@@ -49,21 +69,35 @@ func level_down(dmg):
 		Global.current_level_val = 0.0
 		
 	if Global.current_level_val <= 0 and Global.current_level > 0.0:
-		Global.current_level -= 1
+		Global.current_level -= 1.0
+		Global.gameman_obj.create_message("LEVEL DOWN!")
 		Global.current_level_val = Global.levels_vals[Global.current_level] - dmg
 		if Global.current_level < 0:
-			Global.current_level = 0
+			Global.current_level = 0.0
 	
 func level_up(val):
-	Global.current_level_val += val
-	if Global.current_level_val >= Global.levels_vals[Global.current_level]:
-		Global.gameman_obj.create_message("LEVEL UP!")
-		Global.shaker_obj.shake(10.0, 3.0)
-		Global.current_level += 1
-		Global.current_level_val = 0
-		return true
+	if Global.current_level + 1 <= Global.levels_vals.size():
+		Global.current_level_val += val
+		if Global.current_level_val >= Global.levels_vals[Global.current_level]:
+			Global.gameman_obj.create_message("LEVEL UP!")
+			killemall()
+			Global.shaker_obj.shake(10.0, 3.0)
+			Global.current_level += 1.0
+			Global.current_level_val = 0.0
+			return true
+		else:
+			return false
 	else:
 		return false
+		
+func killemall():
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var bullets = get_tree().get_nodes_in_group("enemy_bullet")
+	for e in enemies:
+		e.die()
+		
+	for b in bullets:
+		b.explode(true)
 	
 func deletefromdistance(_global_position, obj):
 	if _global_position.distance_to(Global.player_obj.global_position) > ONE_SCREEN:

@@ -16,6 +16,8 @@ var ttl = 0.5
 var eternal = false
 
 func _ready():
+	if !eternal:
+		get_tree().paused = true
 	# Eliminar Labels anteriores si recargás la escena
 	for child in get_children():
 		if child is Label:
@@ -48,6 +50,8 @@ func _physics_process(delta: float) -> void:
 		if !eternal:
 			ttl -= 1 * delta
 			if ttl <= 0:
+				if !eternal:
+					get_tree().paused = false
 				queue_free()
 	else:
 		labels[cursor].visible = true
