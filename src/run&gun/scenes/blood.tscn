@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfmqd45uaowb7"]
+
+[ext_resource type="Texture2D" uid="uid://bisdvaits3j36" path="res://sprites/blood.png" id="1_k27oi"]
+[ext_resource type="Script" path="res://scenes/blood.gd" id="1_o0cl2"]
+[ext_resource type="Texture2D" uid="uid://ch3yyaoroe7o1" path="res://sprites/blood_player.png" id="3_5pnc2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yerma"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_k27oi")
+}],
+"loop": true,
+"name": &"blood",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5pnc2")
+}],
+"loop": true,
+"name": &"blood_player",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7m0r7"]
+size = Vector2(2, 2)
+
+[node name="Blood" type="Area2D"]
+z_index = 4096
+script = ExtResource("1_o0cl2")
+
+[node name="blood" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yerma")
+animation = &"blood_player"
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7m0r7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

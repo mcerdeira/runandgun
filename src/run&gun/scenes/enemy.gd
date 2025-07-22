@@ -7,12 +7,14 @@ var no_xp = false
 var wait = 0.0
 var return_to_pos = Vector2.ZERO
 var return_ttl = 0.0
+const blood = preload("res://scenes/blood.tscn")
 
 func _ready() -> void:
 	add_to_group("enemies")
 	
 func hit():
 	if life > 0:
+		bleed(5)
 		life -= 1
 		$sprite.material.set_shader_parameter("on", true)
 		$hit_timer.start()
@@ -25,6 +27,7 @@ func die():
 		xp.global_position = global_position
 		xp.dir = Global.pick_random([1, -1])
 		get_parent().add_child(xp)
+	bleed(15)
 	queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -68,3 +71,9 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 
 func _on_hit_timer_timeout() -> void:
 	$sprite.material.set_shader_parameter("on", false)
+
+func bleed(count):
+	for i in range(count):
+		var blood_instance : Area2D = blood.instantiate()
+		blood_instance.global_position = global_position
+		get_parent().call_deferred("add_child", blood_instance)

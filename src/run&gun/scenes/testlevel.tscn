@@ -1,9 +1,10 @@
-[gd_scene load_steps=41 format=4 uid="uid://jqfap7dyroc1"]
+[gd_scene load_steps=42 format=4 uid="uid://jqfap7dyroc1"]
 
 [ext_resource type="PackedScene" uid="uid://dn40clxkjbilw" path="res://scenes/player.tscn" id="1_0bmj5"]
 [ext_resource type="FontFile" uid="uid://cqp5o2vpb07yg" path="res://fonts/prstartk.ttf" id="1_07atg"]
 [ext_resource type="Script" path="res://scenes/GameMan.gd" id="1_j25gr"]
 [ext_resource type="PackedScene" uid="uid://bix47by45g66p" path="res://scenes/shaker.tscn" id="1_mn4yh"]
+[ext_resource type="Script" path="res://scenes/surface.gd" id="1_ncqgv"]
 [ext_resource type="Texture2D" uid="uid://c36nm23efurpk" path="res://sprites/cross.png" id="2_068ga"]
 [ext_resource type="Texture2D" uid="uid://cx1jkq4d71ivy" path="res://sprites/life_bar1.png" id="2_jfnjr"]
 [ext_resource type="Texture2D" uid="uid://cc8vxc23o2bnc" path="res://sprites/life_bar2.png" id="2_tgxgj"]
@@ -188,6 +189,54 @@ shader_parameter/blockSize = 91.154
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/tolerance = 0.0
 
+[sub_resource type="Animation" id="Animation_bak5x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1000, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_qaqee"]
+resource_name = "disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-285, 6), Vector2(-1000, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_setbo"]
+resource_name = "loop"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-285, 6), Vector2(-650, 6), Vector2(-285, 6)]
+}
+
 [sub_resource type="Animation" id="Animation_cjmcb"]
 resource_name = "new_animation"
 tracks/0/type = "value"
@@ -217,54 +266,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_bak5x"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1000, 6)]
-}
-
-[sub_resource type="Animation" id="Animation_setbo"]
-resource_name = "loop"
-length = 3.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-285, 6), Vector2(-650, 6), Vector2(-285, 6)]
-}
-
-[sub_resource type="Animation" id="Animation_qaqee"]
-resource_name = "disappear"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-285, 6), Vector2(-1000, 6)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rlpdo"]
 _data = {
 "RESET": SubResource("Animation_bak5x"),
@@ -283,6 +284,10 @@ glow_hdr_threshold = 0.0
 glow_hdr_scale = 2.03
 
 [node name="Level" type="Node2D"]
+
+[node name="Surface" type="Sprite2D" parent="."]
+z_index = 4095
+script = ExtResource("1_ncqgv")
 
 [node name="Player" parent="." instance=ExtResource("1_0bmj5")]
 material = SubResource("ShaderMaterial_1veyg")
@@ -456,10 +461,10 @@ position = Vector2(4827, -648)
 position = Vector2(580, -186)
 
 [node name="Marker2D2" type="Marker2D" parent="WaveManager"]
-position = Vector2(-655, 6)
+position = Vector2(-271, 234)
 
 [node name="Marker2D3" type="Marker2D" parent="WaveManager"]
-position = Vector2(565, 132)
+position = Vector2(1326, 48)
 
 [node name="Marker2D4" type="Marker2D" parent="WaveManager"]
-position = Vector2(-614, -367)
+position = Vector2(1394, 406)

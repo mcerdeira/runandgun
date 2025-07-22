@@ -13,6 +13,7 @@ var direction_shoot = "R"
 var hit_ttl = 0
 var hit_total = 7
 var dont_move = true
+const blood = preload("res://scenes/blood.tscn")
 
 func _ready() -> void:
 	add_to_group("players")
@@ -23,6 +24,7 @@ func _ready() -> void:
 func hit(dmg = 5):
 	if !Global.GAMEOVER: 
 		if hit_ttl <= 0:
+			bleed(5)
 			hit_jump()
 			Global.current_life -= dmg
 			if Global.current_life > 0:
@@ -38,6 +40,7 @@ func hit(dmg = 5):
 			
 func die():
 	if !Global.GAMEOVER:
+		bleed(15)
 		velocity.x = 0 
 		dont_move = true
 		Global.GAMEOVER = true
@@ -178,6 +181,13 @@ func _physics_process(delta: float) -> void:
 			$sprite.animation = "idle"
 
 		move_and_slide()
+		
+func bleed(count):
+	for i in range(count):
+		var blood_instance : Area2D = blood.instantiate()
+		blood_instance.blood_type = "blood_player"
+		blood_instance.global_position = global_position
+		get_parent().call_deferred("add_child", blood_instance)
 
 func _on_timer_hit_timeout() -> void:
 	hit_ttl -= 1
