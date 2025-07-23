@@ -22,7 +22,7 @@ func hit():
 			die()
 		
 func die():
-	if !no_xp:
+	if !no_xp and Global.pick_random([true, false]):
 		var xp = xp_drop.instantiate()
 		xp.global_position = global_position
 		xp.dir = Global.pick_random([1, -1])

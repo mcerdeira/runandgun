@@ -54,6 +54,12 @@ func getenemy_random(kind):
 		en = Global.pick_random(ENEM_FLYERS)
 	elif kind == "warlkers":
 		en = Global.pick_random(ENEM_WALKERS)
+	elif kind == "eye":
+		en = ENEMY_EYE
+	elif kind == "bat":
+		en = ENEMY_BAT
+	elif kind == "walker":
+		en = ENEMY_WALKER
 		
 	return en.instantiate()
 

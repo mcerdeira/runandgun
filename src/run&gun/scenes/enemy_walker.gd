@@ -25,7 +25,7 @@ func hit():
 		
 func die():
 	var dir = 1
-	if !no_xp:
+	if !no_xp and Global.pick_random([true, false]):
 		for i in range(2):
 			var xp = xp_drop.instantiate()
 			xp.dir = dir

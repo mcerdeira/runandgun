@@ -11,7 +11,7 @@ script = ExtResource("1_36h0t")
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0
-color = Color(1, 0, 1, 1)
+color = Color(1, 0, 1, 0.133333)
 
 [node name="collider" type="CollisionShape2D" parent="."]
 position = Vector2(576, 346.5)

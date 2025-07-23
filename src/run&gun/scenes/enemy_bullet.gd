@@ -22,7 +22,6 @@ func explode(die):
 
 func _physics_process(delta):
 	Global.deletefromdistance(global_position, self)
-	
 	spr.rotation_degrees += 10 * delta
 	if direction != Vector2.ZERO:
 		position += direction.normalized() * speed * delta

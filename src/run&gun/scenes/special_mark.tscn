@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://k0n8nxe57py0"]
+
+[ext_resource type="Script" path="res://scenes/special_mark.gd" id="1_x5xof"]
+
+[node name="specialMark" type="Marker2D"]
+position = Vector2(-115, 119)
+script = ExtResource("1_x5xof")

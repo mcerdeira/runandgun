@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://jqfap7dyroc1"]
+[gd_scene load_steps=43 format=4 uid="uid://jqfap7dyroc1"]
 
 [ext_resource type="PackedScene" uid="uid://dn40clxkjbilw" path="res://scenes/player.tscn" id="1_0bmj5"]
 [ext_resource type="FontFile" uid="uid://cqp5o2vpb07yg" path="res://fonts/prstartk.ttf" id="1_07atg"]
@@ -20,6 +20,7 @@
 [ext_resource type="Shader" path="res://scenes/fire.gdshader" id="17_4oowp"]
 [ext_resource type="Texture2D" uid="uid://dncdr217aav48" path="res://sprites/hand.png" id="17_fbixt"]
 [ext_resource type="PackedScene" uid="uid://d1hc82fn7fdx2" path="res://scenes/wave_manager.tscn" id="19_w5w3i"]
+[ext_resource type="PackedScene" uid="uid://k0n8nxe57py0" path="res://scenes/special_mark.tscn" id="21_qgmxg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1veyg"]
 resource_local_to_scene = true
@@ -178,7 +179,7 @@ shader_parameter/flame_color = Color(0.160784, 0.0784314, 0.137255, 1)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_mbes7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ethui"]
-size = Vector2(85, 685)
+size = Vector2(603, 169)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hjh1t"]
 shader = ExtResource("17_4oowp")
@@ -415,8 +416,10 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="collider" type="CollisionShape2D" parent="Camera2D/StaticBody2D"]
-position = Vector2(32.5, 260.5)
+position = Vector2(-5, 249)
+rotation = 1.5708
 shape = SubResource("RectangleShape2D_ethui")
+one_way_collision = true
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Camera2D"]
 position = Vector2(590, -275)
@@ -424,8 +427,10 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="collider" type="CollisionShape2D" parent="Camera2D/StaticBody2D2"]
-position = Vector2(32.5, 260.5)
+position = Vector2(71.5, 250.5)
+rotation = -1.5708
 shape = SubResource("RectangleShape2D_ethui")
+one_way_collision = true
 
 [node name="Hand" type="Sprite2D" parent="Camera2D"]
 material = SubResource("ShaderMaterial_hjh1t")
@@ -457,14 +462,18 @@ environment = SubResource("Environment_em42y")
 [node name="WaveManager" parent="." instance=ExtResource("19_w5w3i")]
 position = Vector2(4827, -648)
 
-[node name="Marker2D" type="Marker2D" parent="WaveManager"]
-position = Vector2(580, -186)
+[node name="specialMark" parent="WaveManager" instance=ExtResource("21_qgmxg")]
+position = Vector2(-102, 220)
+KIND = "eye"
 
-[node name="Marker2D2" type="Marker2D" parent="WaveManager"]
-position = Vector2(-271, 234)
+[node name="specialMark2" parent="WaveManager" instance=ExtResource("21_qgmxg")]
+position = Vector2(1242, 348)
+KIND = "eye"
 
-[node name="Marker2D3" type="Marker2D" parent="WaveManager"]
-position = Vector2(1326, 48)
+[node name="specialMark4" parent="WaveManager" instance=ExtResource("21_qgmxg")]
+position = Vector2(1261, 551)
+KIND = "walker"
 
-[node name="Marker2D4" type="Marker2D" parent="WaveManager"]
-position = Vector2(1394, 406)
+[node name="specialMark3" parent="WaveManager" instance=ExtResource("21_qgmxg")]
+position = Vector2(-115, 535)
+KIND = "walker"

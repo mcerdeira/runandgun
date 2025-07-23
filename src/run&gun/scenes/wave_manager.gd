@@ -1,8 +1,7 @@
 extends Area2D
 var activated = false
-var spawn_ttl_total = 3.0
+var spawn_ttl_total = 6.0
 var spawn_ttl = 0.0
-@export var KIND = "all"
 
 func _ready() -> void:
 	$ColorRect.queue_free()
@@ -25,7 +24,8 @@ func spawn():
 	if spawn_ttl <= 0:
 		var childs = get_children()
 		for c in childs:
-			spawn_ttl = spawn_ttl_total
-			var enemy = Global.getenemy_random(KIND)
-			enemy.global_position = c.global_position
-			get_parent().add_child(enemy)
+			if c is Marker2D:
+				spawn_ttl = spawn_ttl_total
+				var enemy = Global.getenemy_random(c.KIND)
+				enemy.global_position = c.global_position
+				get_parent().add_child(enemy)
