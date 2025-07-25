@@ -2,10 +2,11 @@ extends Area2D
 var speed: float = 100.0
 var xp_drop = preload("res://scenes/xp_item.tscn")
 var bullet_obj = preload("res://scenes/enemy_bullet.tscn")
-var life = 3
+var life = 2
 var shoot_ttl_total = 3.0
 var shoot_ttl = 3.0
 var no_xp = false
+var direction = -1
 const blood = preload("res://scenes/blood.tscn")
 
 func _ready() -> void:
@@ -45,8 +46,8 @@ func _physics_process(delta: float) -> void:
 		shoot_ttl = shoot_ttl_total
 		shoot()
 		
-	var direction = Vector2.LEFT
-	global_position += direction * speed * delta
+	$sprite.scale.x = direction * -1
+	global_position += Vector2(direction, 0) * speed * delta
 		
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("players"):

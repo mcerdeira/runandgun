@@ -444,8 +444,8 @@ libraries = {
 }
 
 [node name="EnemySpawner" parent="." instance=ExtResource("14_d346t")]
-position = Vector2(-655, 211)
-scale = Vector2(2, 1)
+position = Vector2(-495, 211)
+scale = Vector2(1.5, 1)
 KIND = "flyers"
 
 [node name="ProximitySpawner" parent="." instance=ExtResource("15_tafke")]
@@ -461,19 +461,24 @@ environment = SubResource("Environment_em42y")
 
 [node name="WaveManager" parent="." instance=ExtResource("19_w5w3i")]
 position = Vector2(4827, -648)
+wavecount = 3
 
 [node name="specialMark" parent="WaveManager" instance=ExtResource("21_qgmxg")]
 position = Vector2(-102, 220)
 KIND = "eye"
+direction = 1
 
 [node name="specialMark2" parent="WaveManager" instance=ExtResource("21_qgmxg")]
 position = Vector2(1242, 348)
 KIND = "eye"
+direction = -1
 
 [node name="specialMark4" parent="WaveManager" instance=ExtResource("21_qgmxg")]
 position = Vector2(1261, 551)
 KIND = "walker"
+direction = -1
 
 [node name="specialMark3" parent="WaveManager" instance=ExtResource("21_qgmxg")]
 position = Vector2(-115, 535)
 KIND = "walker"
+direction = 1

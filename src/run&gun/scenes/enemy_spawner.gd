@@ -21,6 +21,10 @@ func spawn():
 		if count > Global.MAX_SPAWN_XP:
 			enemy.no_xp = true
 		enemy.global_position = global_position
+		if Global.player_obj.global_position.x > global_position.x:
+			enemy.direction = 1
+		else:
+			enemy.direction = -1
 		get_parent().add_child(enemy)
 
 func _on_body_exited(body: Node2D) -> void:

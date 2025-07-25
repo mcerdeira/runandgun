@@ -109,7 +109,7 @@ func deletefromdistance(_global_position, obj):
 	if _global_position.distance_to(Global.player_obj.global_position) > ONE_SCREEN:
 		obj.queue_free()
 	
-func _physics_process(delta: float) -> void:	
+func _physics_process(delta: float) -> void:		
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		Global.FULLSCREEN = !Global.FULLSCREEN
 		if Global.FULLSCREEN:

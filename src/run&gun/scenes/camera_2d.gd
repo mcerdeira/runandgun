@@ -16,6 +16,14 @@ func _ready():
 	initial_offset_y = position.y - player.global_position.y
 
 func _process(delta):
+	if Input.is_action_just_pressed("debug_zoom_in"):
+		zoom.x += 0.1
+		zoom.y = zoom.x
+		
+	if Input.is_action_just_pressed("debug_zoom_out"):
+		zoom.x -= 0.1
+		zoom.y = zoom.x
+	
 	if follow:
 		var target_x = player.global_position.x
 		if target_x == prev_x:

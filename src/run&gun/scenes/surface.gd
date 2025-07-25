@@ -5,11 +5,11 @@ class_name paint
 var bloods = []
 var blood_texture =  preload("res://sprites/blood.png")
 var blood_texture_player =  preload("res://sprites/blood_player.png")
-var blood_limit = 35000
+var blood_limit = 3500
 		
 func draw_blood(draw_pos : Vector2, _blood_type):
 	if bloods.size() > blood_limit:
-		bloods.pop_front()
+		bloods.pop_back()
 		bloods.push_back([draw_pos, _blood_type])
 	else:
 		bloods.append([draw_pos, _blood_type])

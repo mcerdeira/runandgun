@@ -7,6 +7,7 @@ var no_xp = false
 var wait = 0.0
 var return_to_pos = Vector2.ZERO
 var return_ttl = 0.0
+var direction = 0 #DUMMY, sin uso
 const blood = preload("res://scenes/blood.tscn")
 
 func _ready() -> void:
