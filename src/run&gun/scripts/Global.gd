@@ -2,7 +2,7 @@ extends Node
 var shaker_obj = null
 var player_obj = null
 var gameman_obj = null
-var skip_animation = true
+var skip_animation = false
 var GAMEOVER = false
 var FULLSCREEN = false
 ## Enemies ################################
@@ -100,7 +100,7 @@ func killemall():
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var bullets = get_tree().get_nodes_in_group("enemy_bullet")
 	for e in enemies:
-		e.die()
+		e.die(false)
 		
 	for b in bullets:
 		b.explode(true)

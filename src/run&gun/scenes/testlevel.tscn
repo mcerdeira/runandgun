@@ -433,6 +433,7 @@ shape = SubResource("RectangleShape2D_ethui")
 one_way_collision = true
 
 [node name="Hand" type="Sprite2D" parent="Camera2D"]
+z_index = 4096
 material = SubResource("ShaderMaterial_hjh1t")
 position = Vector2(-1000, 6)
 scale = Vector2(0.5, 0.5)
@@ -445,7 +446,7 @@ libraries = {
 
 [node name="EnemySpawner" parent="." instance=ExtResource("14_d346t")]
 position = Vector2(-495, 211)
-scale = Vector2(1.5, 1)
+scale = Vector2(1.7, 1)
 KIND = "flyers"
 
 [node name="ProximitySpawner" parent="." instance=ExtResource("15_tafke")]
@@ -456,6 +457,18 @@ KIND = "flyers"
 position = Vector2(1759, 100)
 KIND = "flyers"
 
+[node name="ProximitySpawner3" parent="." instance=ExtResource("15_tafke")]
+position = Vector2(2830, 68)
+KIND = "flyers"
+
+[node name="ProximitySpawner4" parent="." instance=ExtResource("15_tafke")]
+position = Vector2(3573, -56)
+KIND = "flyers"
+
+[node name="ProximitySpawner5" parent="." instance=ExtResource("15_tafke")]
+position = Vector2(4409, 12)
+KIND = "flyers"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_em42y")
 
@@ -464,21 +477,16 @@ position = Vector2(4827, -648)
 wavecount = 3
 
 [node name="specialMark" parent="WaveManager" instance=ExtResource("21_qgmxg")]
-position = Vector2(-102, 220)
+position = Vector2(-45, 420)
 KIND = "eye"
 direction = 1
 
-[node name="specialMark2" parent="WaveManager" instance=ExtResource("21_qgmxg")]
-position = Vector2(1242, 348)
-KIND = "eye"
-direction = -1
-
 [node name="specialMark4" parent="WaveManager" instance=ExtResource("21_qgmxg")]
-position = Vector2(1261, 551)
+position = Vector2(1243, 580)
 KIND = "walker"
 direction = -1
 
 [node name="specialMark3" parent="WaveManager" instance=ExtResource("21_qgmxg")]
-position = Vector2(-115, 535)
+position = Vector2(-90, 564)
 KIND = "walker"
 direction = 1

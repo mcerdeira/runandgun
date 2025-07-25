@@ -22,7 +22,10 @@ func hit():
 		if life <= 0:
 			die()
 		
-func die():
+func die(force_noxp = false):
+	if force_noxp:
+		no_xp = true
+	
 	if !no_xp and Global.pick_random([true, false]):
 		var xp = xp_drop.instantiate()
 		xp.global_position = global_position

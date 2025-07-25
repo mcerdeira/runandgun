@@ -8,12 +8,17 @@ var initial_offset_y := 0.0
 var show_hand_ttl_total = 13.0
 var show_hand_ttl = show_hand_ttl_total
 var prev_x = 0
+var force_ttl = 0.0
 
 func _ready():
 	Global.shaker_obj.camera = self
 	player = get_node(player_path)
 	max_x = player.global_position.x
 	initial_offset_y = position.y - player.global_position.y
+	
+func forcehand():
+	$Goanim.play("new_animation")
+	force_ttl = 3.0
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_zoom_in"):
@@ -23,8 +28,11 @@ func _process(delta):
 	if Input.is_action_just_pressed("debug_zoom_out"):
 		zoom.x -= 0.1
 		zoom.y = zoom.x
+		
+	if force_ttl > 0.0:
+		force_ttl -= 1 * delta
 	
-	if follow:
+	if follow and force_ttl <= 0:
 		var target_x = player.global_position.x
 		if target_x == prev_x:
 			if get_tree().get_nodes_in_group("enemies").size() == 0:

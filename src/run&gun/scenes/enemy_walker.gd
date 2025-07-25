@@ -23,8 +23,11 @@ func hit():
 		if life <= 0:
 			die()
 		
-func die():
+func die(force_noxp = false):
 	var dir = 1
+	if force_noxp:
+		no_xp = true
+	
 	if !no_xp and Global.pick_random([true, false]):
 		for i in range(2):
 			var xp = xp_drop.instantiate()

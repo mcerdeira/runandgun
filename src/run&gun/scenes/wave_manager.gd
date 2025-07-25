@@ -23,7 +23,8 @@ func _physics_process(delta: float) -> void:
 		spawn()
 		if waves > wavecount:
 			Global.shaker_obj.camera.follow = true
-			Global.shaker_obj.camera.show_hand_ttl = 0
+			Global.shaker_obj.camera.forcehand()
+			Global.killemall()
 			queue_free()
 
 func spawn():
