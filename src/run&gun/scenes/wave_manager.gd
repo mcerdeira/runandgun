@@ -2,15 +2,17 @@ extends Area2D
 var activated = false
 var spawn_ttl_total = 6.0
 var spawn_ttl = 0.0
-@export var wavecount = 0
-var waves = 0
-
-func _ready() -> void:
-	$ColorRect.queue_free()
+@export var wavecount = 1
+@export var KIND = "all"
+@export var zone = "UP"
+@export var stopcamera = false
+@export var fixedside = -1
+var waves = 1
 
 func _on_body_entered(body: Node2D) -> void:
 	if body and body.is_in_group("players"):
-		Global.shaker_obj.camera.follow = false
+		if stopcamera:
+			Global.shaker_obj.camera.follow = false
 		activated = true
 
 func _physics_process(delta: float) -> void:
@@ -22,19 +24,34 @@ func _physics_process(delta: float) -> void:
 			
 		spawn()
 		if waves > wavecount:
-			Global.shaker_obj.camera.follow = true
-			Global.shaker_obj.camera.forcehand()
-			Global.killemall()
+			if stopcamera:
+				Global.shaker_obj.camera.follow = true
+				Global.shaker_obj.camera.forcehand()
+				Global.killemall()
 			queue_free()
+			
+func chooseDir(_zone):
+	if fixedside == -1:
+		return Global.pick_random(_zone)
+	else:
+		return _zone[fixedside]
 
 func spawn():
 	if spawn_ttl <= 0:
 		waves+= 1
-		var childs = get_children()
-		for c in childs:
-			if c is Marker2D:
-				spawn_ttl = spawn_ttl_total
-				var enemy = Global.getenemy_random(c.KIND)
-				enemy.direction = c.direction
-				enemy.global_position = c.global_position
-				get_parent().add_child(enemy)
+		spawn_ttl = spawn_ttl_total
+		var enemy = Global.getenemy_random(KIND)
+		if zone == "UP":
+			var pos = chooseDir(Global.EnemyZoneUp)
+			enemy.global_position = pos.global_position
+			enemy.direction = pos.direction
+		elif zone == "BOTTOM":
+			var pos = chooseDir(Global.EnemyZoneBottom)
+			enemy.global_position = pos.global_position
+			enemy.direction = pos.direction
+		elif zone == "MID" or zone == "MIDDLE": 
+			var pos = chooseDir(Global.EnemyZoneMid)
+			enemy.global_position = pos.global_position
+			enemy.direction = pos.direction
+		
+		get_parent().add_child(enemy)

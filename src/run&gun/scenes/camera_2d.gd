@@ -15,6 +15,9 @@ func _ready():
 	player = get_node(player_path)
 	max_x = player.global_position.x
 	initial_offset_y = position.y - player.global_position.y
+	Global.EnemyZoneUp = [$EnemyZoneUp/mark1, $EnemyZoneUp/mark2]
+	Global.EnemyZoneMid = [$EnemyZoneMid/mark1, $EnemyZoneMid/mark2]
+	Global.EnemyZoneBottom = [$EnemyZoneBottom/mark1, $EnemyZoneBottom/mark2]
 	
 func forcehand():
 	$Goanim.play("new_animation")

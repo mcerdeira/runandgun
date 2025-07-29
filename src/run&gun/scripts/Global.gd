@@ -2,7 +2,7 @@ extends Node
 var shaker_obj = null
 var player_obj = null
 var gameman_obj = null
-var skip_animation = false
+var skip_animation = true
 var GAMEOVER = false
 var FULLSCREEN = false
 ## Enemies ################################
@@ -13,6 +13,9 @@ var ENEMY_BAT = null
 var ENEMY_EYE = null
 var ENEMY_WALKER = null
 ## Leveling stuff ########################
+var EnemyZoneUp = null
+var EnemyZoneMid = null
+var EnemyZoneBottom = null
 var current_level = 0.0
 var current_level_val = 0.0
 var levels_vals = [20.0, 55.0, 100.0, 150.0]
@@ -58,7 +61,7 @@ func getenemy_random(kind):
 		en = ENEMY_EYE
 	elif kind == "bat":
 		en = ENEMY_BAT
-	elif kind == "walker":
+	elif kind == "walkers":
 		en = ENEMY_WALKER
 		
 	return en.instantiate()
