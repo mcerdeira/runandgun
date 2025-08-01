@@ -11,7 +11,7 @@ var scale_y = 1.0
 var jumping = false
 var direction_shoot = "R"
 var hit_ttl = 0
-var hit_total = 7
+var hit_total = 5
 var dont_move = true
 const blood = preload("res://scenes/blood.tscn")
 
@@ -20,6 +20,11 @@ func _ready() -> void:
 	Global.player_obj = self
 	$sprite.animation = "idle"
 	$sprite.play()
+	
+func life_up(dmg = 5):
+	Global.current_life += dmg
+	if Global.current_life > Global.total_life:
+		Global.current_life = Global.total_life
 	
 func hit(dmg = 5):
 	if !Global.GAMEOVER: 
@@ -37,6 +42,8 @@ func hit(dmg = 5):
 				$timer_hit.start()
 			else:
 				die()
+		else:
+			hit_jump()
 			
 func die():
 	if !Global.GAMEOVER:
@@ -191,14 +198,17 @@ func bleed(count):
 
 func _on_timer_hit_timeout() -> void:
 	hit_ttl -= 1
-	#if hit_ttl % 2 == 0:
-		#$sprite.material.set_shader_parameter("on", true)
-		#$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
-	#else:
-		#$sprite.material.set_shader_parameter("on", false)
-		#$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
-		#
-	#if hit_ttl == 0:
-		#$sprite.material.set_shader_parameter("on", false)
-		#$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
-		#$timer_hit.stop()
+	$sprite.use_parent_material = false
+	if hit_ttl % 2 == 0:
+		$sprite.material.set_shader_parameter("on", true)
+		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+	else:
+		$sprite.material.set_shader_parameter("on", false)
+		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+		
+	if hit_ttl == 0:
+		hit_ttl = 0
+		$sprite.use_parent_material = true
+		$sprite.material.set_shader_parameter("on", false)
+		$sprite.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0))
+		$timer_hit.stop()

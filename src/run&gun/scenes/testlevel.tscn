@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dncdr217aav48" path="res://sprites/hand.png" id="17_fbixt"]
 [ext_resource type="PackedScene" uid="uid://d1hc82fn7fdx2" path="res://scenes/wave_manager.tscn" id="19_w5w3i"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1veyg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nmr6h"]
 resource_local_to_scene = true
 shader = ExtResource("17_4oowp")
 shader_parameter/maxLineWidth = 0.0
@@ -376,7 +376,7 @@ KIND = "walkers"
 fixedside = 1
 
 [node name="Player" parent="." instance=ExtResource("1_0bmj5")]
-material = SubResource("ShaderMaterial_1veyg")
+material = SubResource("ShaderMaterial_nmr6h")
 position = Vector2(73, 194)
 collision_layer = 3
 collision_mask = 3

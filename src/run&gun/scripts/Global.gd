@@ -29,6 +29,8 @@ var max_x = null
 var ONE_SCREEN = 1250
 var MAX_SPAWN_XP = 5
 var MAIN_THEME = null
+var xp_drop = preload("res://scenes/xp_item.tscn")
+var life_drop = preload("res://scenes/life_item.tscn")
 
 func init_vars():
 	MAIN_THEME = load("res://music/Night On Bald Mountain.mp3")
@@ -98,6 +100,12 @@ func level_up(val):
 			return false
 	else:
 		return false
+		
+func random_drop():
+	if randi() % 4 == 0:
+		return life_drop.instantiate()
+	else:
+		return xp_drop.instantiate()
 		
 func killemall():
 	var enemies = get_tree().get_nodes_in_group("enemies")

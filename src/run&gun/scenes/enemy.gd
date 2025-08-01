@@ -1,7 +1,6 @@
 extends Area2D
 var speed_original: float = 250.0
 var speed: float = speed_original
-var xp_drop = preload("res://scenes/xp_item.tscn")
 var life = 1
 var no_xp = false
 var wait = 0.0
@@ -27,10 +26,11 @@ func die(force_noxp = false):
 		no_xp = true
 	
 	if !no_xp and Global.pick_random([true, false]):
-		var xp = xp_drop.instantiate()
+		var xp = Global.random_drop()
 		xp.global_position = global_position
 		xp.dir = Global.pick_random([1, -1])
 		get_parent().add_child(xp)
+		
 	bleed(15)
 	queue_free()
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dn40clxkjbilw"]
+[gd_scene load_steps=17 format=3 uid="uid://dn40clxkjbilw"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_73n8v"]
 [ext_resource type="Shader" path="res://scenes/fire.gdshader" id="1_tteqd"]
 [ext_resource type="Texture2D" uid="uid://cltdelfv171s5" path="res://sprites/player_idle1.png" id="2_pqyak"]
 [ext_resource type="Texture2D" uid="uid://dfy6thkanqddr" path="res://sprites/player_idle2.png" id="3_4flox"]
+[ext_resource type="Shader" path="res://scenes/hitshader.gdshader" id="3_f1nii"]
 [ext_resource type="Texture2D" uid="uid://c3lws6w55dj4i" path="res://sprites/player_idle3.png" id="4_1nldl"]
 [ext_resource type="Texture2D" uid="uid://b4w1i2a4qjkvb" path="res://sprites/player_dead.png" id="4_fulqq"]
 [ext_resource type="Texture2D" uid="uid://ckj55bmsoq0aa" path="res://sprites/player_running1.png" id="5_gjxlu"]
@@ -12,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://f1vbgtkew5yn" path="res://sprites/player_gun.png" id="8_bcutw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4n1ef"]
-resource_local_to_scene = true
 shader = ExtResource("1_tteqd")
 shader_parameter/maxLineWidth = 0.0
 shader_parameter/minLineWidth = 0.0
@@ -20,6 +20,11 @@ shader_parameter/speed = 3.043
 shader_parameter/blockSize = 1.0
 shader_parameter/color = Color(1, 1, 0.196, 1)
 shader_parameter/tolerance = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dbcm7"]
+shader = ExtResource("3_f1nii")
+shader_parameter/on = false
+shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p7xn4"]
 animations = [{
@@ -82,6 +87,7 @@ script = ExtResource("1_73n8v")
 wait_time = 0.2
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_dbcm7")
 sprite_frames = SubResource("SpriteFrames_p7xn4")
 animation = &"idle"
 

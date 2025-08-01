@@ -9,9 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bw3cq3ndaisy7" path="res://sprites/enemies/enemy_walker5.png" id="7_1bl0g"]
 [ext_resource type="Texture2D" uid="uid://1jtxsq6hmm0a" path="res://sprites/enemies/enemy_walker6.png" id="8_14hbl"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5s3vo"]
-radius = 14.0
-height = 44.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_4elxm"]
+radius = 42.4264
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xgtar"]
 resource_local_to_scene = true
@@ -50,8 +49,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4elxm"]
-radius = 42.4264
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5s3vo"]
+radius = 16.0
+height = 70.0
 
 [node name="EnemyWalker" type="CharacterBody2D"]
 collision_layer = 3
@@ -59,8 +59,8 @@ collision_mask = 3
 script = ExtResource("1_1bg4h")
 
 [node name="collider" type="CollisionShape2D" parent="."]
-position = Vector2(4, 18)
-shape = SubResource("CapsuleShape2D_5s3vo")
+position = Vector2(5, -2)
+shape = SubResource("CircleShape2D_4elxm")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_xgtar")
@@ -73,8 +73,8 @@ speed_scale = 6.0
 [node name="hurtbox" type="Area2D" parent="."]
 
 [node name="collider" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(5, -2)
-shape = SubResource("CircleShape2D_4elxm")
+position = Vector2(4, -4)
+shape = SubResource("CapsuleShape2D_5s3vo")
 
 [node name="hit_timer" type="Timer" parent="."]
 wait_time = 0.2

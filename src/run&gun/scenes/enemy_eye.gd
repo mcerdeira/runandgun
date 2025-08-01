@@ -28,7 +28,7 @@ func die(force_noxp = false):
 		
 	if !no_xp and Global.pick_random([true, false]):
 		for i in range(2):
-			var xp = xp_drop.instantiate()
+			var xp = Global.random_drop()
 			xp.dir = dir
 			xp.global_position = global_position
 			dir *= -1
